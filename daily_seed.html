@@ -194,10 +194,10 @@
                             <tr>
                                 <td>${entry.rank}</td>
                                 <td>${escapeHtml(entry.discord_name)}</td>
-                                <td>${escapeHtml(entry.run_time || '')}</td>
+                                <td>${escapeHtml(entry.run_time === null ? 'null' : entry.run_time)}</td>
                             </tr>`).join('');
                         leaderboardResult.innerHTML = `
-                            <table class="settings_generator_table">
+                            <table class="settings_generator_table" style="margin: 0;">
                                 <tr><th>#</th><th>Player</th><th>Time</th></tr>
                                 ${rows}
                             </table>`;
