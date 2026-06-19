@@ -71,6 +71,31 @@ button, img {
     border-radius: 5px;
 }
 
+/* Grid of linked cards, e.g. the homepage's quick links */
+.quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.quick-links .card {
+    flex: 1 1 220px;
+    text-align: center;
+}
+
+.quick-links .card a {
+    display: block;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.quick-links .card p {
+    margin: 0;
+    color: #cfcfcf;
+}
+
 /* Links */
 a {
     color: #89cff0; /* Light blue links */

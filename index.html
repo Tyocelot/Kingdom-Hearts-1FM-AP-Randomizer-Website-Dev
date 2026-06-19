@@ -5,16 +5,13 @@
     <link rel="icon" type="image/x-icon" href="./images/icon.png">
     <link rel="stylesheet" href="style.css">
 </head>
-    <body> 
+    <body>
         <div class="container">
             <!-- Make dark mode -->
             <meta name    = "color-scheme" content = "light dark"/>
-            
+
             <div id="header-container"></div>
-            
-            <p><br><br>
-                            This is a test version of the website for trying out prerelease versions of the randomizer<br>
-            
+
             <script>
                 fetch('header.html')
                     .then(response => response.text())
@@ -23,7 +20,33 @@
                         document.getElementById('page-subtitle').textContent = 'Home';
                     });
             </script>
-        </div>
+
+            <div class="card">
+                <p>
+                    Welcome to the Kingdom Hearts: Final Mix Archipelago Randomizer site.  Generate a seed for solo or
+                    multiworld play, race the same seed as everyone else with the Daily Seed, or read through the
+                    setup and locations guides below.
+                </p>
+            </div>
+
+            <div class="quick-links">
+                <div class="card">
+                    <a href="generate_a_seed.html">Generate a Seed</a>
+                    <p>Customize your settings and generate a randomizer seed.</p>
+                </div>
+                <div class="card">
+                    <a href="daily_seed.html">Daily Seed</a>
+                    <p>Log in with Discord, race today's seed, and check the leaderboard.</p>
+                </div>
+                <div class="card">
+                    <a href="setup_guide.html">Setup Guide</a>
+                    <p>Install the software and mod, then get a seed running.</p>
+                </div>
+                <div class="card">
+                    <a href="discord_links.html">Discord</a>
+                    <p>Join the community, get help, and find races.</p>
+                </div>
+            </div>
         </div>
     </body>
 </html>
