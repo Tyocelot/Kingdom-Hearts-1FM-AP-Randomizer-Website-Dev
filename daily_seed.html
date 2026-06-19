@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Seed</title>
+    <link rel="icon" type="image/x-icon" href="./images/icon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+    <body>
+        <div class="container">
+            <!-- Make dark mode -->
+            <meta name    = "color-scheme" content = "light dark"/>
+
+            <div id="header-container"></div>
+
+            <script>
+                fetch('header.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('header-container').innerHTML = html;
+                        document.getElementById('page-subtitle').textContent = 'Daily Seed';
+                    });
+            </script>
+
+            <p>
+                <br>
+                Log in with Discord to fetch today's daily seed.  Everyone gets the same seed, but in their own room so runs can be timed independently.<br>
+                Once you finish, come back and click "Check Completion" to record your time on the leaderboard.
+                <br><br>
+
+                <div id="auth-section"></div>
+                <br>
+
+                <div id="action-section" style="display:none;">
+                    <button id="fetch-daily-seed-button">Fetch Daily Seed</button>
+                    <button id="check-completion-button">Check Completion</button>
+                    <div id="daily-seed-result"></div>
+                </div>
+                <br>
+
+                <h3>Leaderboard</h3>
+                <button id="refresh-leaderboard-button">Refresh Leaderboard</button>
+                <div id="leaderboard-result"></div>
+            </p>
+
+            <script>
+                const flaskBase = 'https://dev-ngaither.pythonanywhere.com';
+                const tokenStorageKey = 'kh1_daily_seed_token';
+
+                const authSection = document.getElementById('auth-section');
+                const actionSection = document.getElementById('action-section');
+                const dailySeedResult = document.getElementById('daily-seed-result');
+                const leaderboardResult = document.getElementById('leaderboard-result');
+
+                function decodeTokenPayload(token) {
+                    try {
+                        const payloadB64 = token.split('.')[0];
+                        const padded = payloadB64.replace(/-/g, '+').replace(/_/g, '/');
+                        return JSON.parse(atob(padded));
+                    } catch (e) {
+                        return null;
+                    }
+                }
+
+                function getStoredToken() {
+                    const token = localStorage.getItem(tokenStorageKey);
+                    if (!token) return null;
+                    const payload = decodeTokenPayload(token);
+                    if (!payload || (payload.exp && payload.exp * 1000 < Date.now())) {
+                        localStorage.removeItem(tokenStorageKey);
+                        return null;
+                    }
+                    return token;
+                }
+
+                function renderAuthSection() {
+                    const token = getStoredToken();
+                    if (!token) {
+                        const returnTo = encodeURIComponent(window.location.origin + window.location.pathname);
+                        authSection.innerHTML = `<a href="${flaskBase}/oauth/login?return_to=${returnTo}">Login with Discord</a>`;
+                        actionSection.style.display = 'none';
+                        return;
+                    }
+
+                    const payload = decodeTokenPayload(token);
+                    const name = (payload && payload.discord_name) || 'Discord user';
+                    authSection.innerHTML = `Logged in as <strong>${name}</strong> &nbsp; <a href="#" id="logout-link">Logout</a>`;
+                    document.getElementById('logout-link').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        localStorage.removeItem(tokenStorageKey);
+                        dailySeedResult.innerHTML = '';
+                        renderAuthSection();
+                    });
+                    actionSection.style.display = 'block';
+                }
+
+                // Pick up the token handed back from the OAuth callback redirect.
+                (function captureTokenFromHash() {
+                    const match = window.location.hash.match(/token=([^&]+)/);
+                    if (match) {
+                        localStorage.setItem(tokenStorageKey, decodeURIComponent(match[1]));
+                        history.replaceState(null, '', window.location.pathname + window.location.search);
+                    }
+                })();
+
+                renderAuthSection();
+
+                async function fetchDailySeed() {
+                    const token = getStoredToken();
+                    if (!token) {
+                        dailySeedResult.textContent = 'Please login with Discord first.';
+                        return;
+                    }
+
+                    dailySeedResult.textContent = 'Fetching daily seed...';
+                    try {
+                        const response = await fetch(`${flaskBase}/daily_seed`, {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${token}` }
+                        });
+
+                        if (!response.ok) {
+                            const errorText = await response.text();
+                            dailySeedResult.textContent = `Error: ${response.status} ${errorText}`;
+                            return;
+                        }
+
+                        const roomLink = response.headers.get('X-Room-Link') || 'No room link found.';
+                        const contentType = response.headers.get('Content-Type') || '';
+
+                        if (contentType.includes('application/zip') || contentType.includes('application/octet-stream')) {
+                            const blob = await response.blob();
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'mod.zip';
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            window.URL.revokeObjectURL(url);
+                            dailySeedResult.innerHTML = `Daily seed downloaded.<br>Room link: <a href="${roomLink}">${roomLink}</a>`;
+                        } else {
+                            const responseText = await response.text();
+                            dailySeedResult.textContent = `Response: ${responseText}`;
+                        }
+                    } catch (error) {
+                        dailySeedResult.textContent = `An error occurred: ${error.message}`;
+                    }
+                }
+
+                async function checkCompletion() {
+                    const token = getStoredToken();
+                    if (!token) {
+                        dailySeedResult.textContent = 'Please login with Discord first.';
+                        return;
+                    }
+
+                    dailySeedResult.textContent = 'Checking completion...';
+                    try {
+                        const response = await fetch(`${flaskBase}/daily_seed_complete`, {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${token}` }
+                        });
+                        const data = await response.json();
+                        dailySeedResult.textContent = data.message || data.error || 'Unknown response.';
+                    } catch (error) {
+                        dailySeedResult.textContent = `An error occurred: ${error.message}`;
+                    }
+                }
+
+                async function refreshLeaderboard() {
+                    leaderboardResult.textContent = 'Loading leaderboard...';
+                    try {
+                        const response = await fetch(`${flaskBase}/daily_leaderboard`, { method: 'POST' });
+                        const data = await response.json();
+                        leaderboardResult.innerHTML = (data.message || data.error || 'Unknown response.').replace(/\n/g, '<br>');
+                    } catch (error) {
+                        leaderboardResult.textContent = `An error occurred: ${error.message}`;
+                    }
+                }
+
+                document.getElementById('fetch-daily-seed-button').addEventListener('click', fetchDailySeed);
+                document.getElementById('check-completion-button').addEventListener('click', checkCompletion);
+                document.getElementById('refresh-leaderboard-button').addEventListener('click', refreshLeaderboard);
+            </script>
+        </div>
+    </body>
+</html>
