@@ -200,6 +200,7 @@ button:hover {
     border: 1px solid #ffffff; /* border around each option */
     margin: 2px 4px; /* small spacing to separate borders */
     border-radius: 3px;
+    white-space: nowrap;
 }
 
 .dropdown-content a:hover {
