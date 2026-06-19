@@ -114,6 +114,23 @@
 
                 renderAuthSection();
 
+                async function fetchWithTimeout(url, options = {}, timeoutMs = 15000) {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+                    try {
+                        return await fetch(url, { ...options, signal: controller.signal });
+                    } finally {
+                        clearTimeout(timeoutId);
+                    }
+                }
+
+                function describeFetchFailure(error) {
+                    if (error.name === 'AbortError') {
+                        return 'The request timed out. The server may be slow to respond - please try again in a moment.';
+                    }
+                    return 'Could not reach the server. Please check your connection and try again.';
+                }
+
                 async function fetchDailySeed() {
                     const token = getStoredToken();
                     if (!token) {
@@ -123,7 +140,7 @@
 
                     dailySeedResult.textContent = 'Fetching daily seed...';
                     try {
-                        const response = await fetch(`${flaskBase}/daily_seed`, {
+                        const response = await fetchWithTimeout(`${flaskBase}/daily_seed`, {
                             method: 'POST',
                             headers: { 'Authorization': `Bearer ${token}` }
                         });
@@ -153,7 +170,7 @@
                             dailySeedResult.textContent = `Response: ${responseText}`;
                         }
                     } catch (error) {
-                        dailySeedResult.textContent = `An error occurred: ${error.message}`;
+                        dailySeedResult.textContent = describeFetchFailure(error);
                     }
                 }
 
@@ -166,14 +183,14 @@
 
                     dailySeedResult.textContent = 'Checking completion...';
                     try {
-                        const response = await fetch(`${flaskBase}/daily_seed_complete`, {
+                        const response = await fetchWithTimeout(`${flaskBase}/daily_seed_complete`, {
                             method: 'POST',
                             headers: { 'Authorization': `Bearer ${token}` }
                         });
                         const data = await response.json();
                         dailySeedResult.textContent = data.message || data.error || 'Unknown response.';
                     } catch (error) {
-                        dailySeedResult.textContent = `An error occurred: ${error.message}`;
+                        dailySeedResult.textContent = describeFetchFailure(error);
                     }
                 }
 
@@ -186,7 +203,7 @@
                 async function refreshLeaderboard() {
                     leaderboardResult.textContent = 'Loading leaderboard...';
                     try {
-                        const response = await fetch(`${flaskBase}/daily_leaderboard`, { method: 'POST' });
+                        const response = await fetchWithTimeout(`${flaskBase}/daily_leaderboard`, { method: 'POST' });
                         const data = await response.json();
 
                         if (data.error) {
@@ -212,7 +229,7 @@
                                 ${rows}
                             </table>`;
                     } catch (error) {
-                        leaderboardResult.textContent = `An error occurred: ${error.message}`;
+                        leaderboardResult.textContent = describeFetchFailure(error);
                     }
                 }
 
