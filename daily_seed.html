@@ -167,12 +167,40 @@
                     }
                 }
 
+                function escapeHtml(value) {
+                    return String(value).replace(/[&<>"']/g, (c) => ({
+                        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+                    }[c]));
+                }
+
                 async function refreshLeaderboard() {
                     leaderboardResult.textContent = 'Loading leaderboard...';
                     try {
                         const response = await fetch(`${flaskBase}/daily_leaderboard`, { method: 'POST' });
                         const data = await response.json();
-                        leaderboardResult.innerHTML = (data.message || data.error || 'Unknown response.').replace(/\n/g, '<br>');
+
+                        if (data.error) {
+                            leaderboardResult.textContent = data.error;
+                            return;
+                        }
+
+                        const leaderboard = data.leaderboard || [];
+                        if (leaderboard.length === 0) {
+                            leaderboardResult.textContent = 'No completed runs yet today.';
+                            return;
+                        }
+
+                        const rows = leaderboard.map(entry => `
+                            <tr>
+                                <td>${entry.rank}</td>
+                                <td>${escapeHtml(entry.discord_name)}</td>
+                                <td>${escapeHtml(entry.run_time || '')}</td>
+                            </tr>`).join('');
+                        leaderboardResult.innerHTML = `
+                            <table class="settings_generator_table">
+                                <tr><th>#</th><th>Player</th><th>Time</th></tr>
+                                ${rows}
+                            </table>`;
                     } catch (error) {
                         leaderboardResult.textContent = `An error occurred: ${error.message}`;
                     }
