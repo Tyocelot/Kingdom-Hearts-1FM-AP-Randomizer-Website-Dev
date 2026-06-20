@@ -14,7 +14,7 @@
 
                 <h2>Generating a multiworld game</h2>
                 <li><a href="https://archipelago.gg/tutorial/">Install Archipelago</a> if you haven't already done so</li>
-                <li>Download the latest <a href="https://dev-ngaither.pythonanywhere.com/kh1.apworld">kh1.apworld</a></li>
+                <li>Download the latest <a id="apworld-download-link" href="#">kh1.apworld</a></li>
                 <li>Navigate to your Archipelago installation folder, typically found at "C:\ProgramData\Archipelago"</li>
                 <p><img src="./images/archipelago_folder.png" border="1"></p>
                 <li>Open the "lib" folder</li>
@@ -59,6 +59,10 @@
                         document.getElementById('header-container').innerHTML = html;
                         document.getElementById('page-subtitle').textContent = 'Multiworld Guide';
                     });
+            </script>
+            <script src="config.js"></script>
+            <script>
+                document.getElementById('apworld-download-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
             </script>
         </div>
     </body>

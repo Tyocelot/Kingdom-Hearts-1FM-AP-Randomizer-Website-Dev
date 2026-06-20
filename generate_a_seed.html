@@ -1741,9 +1741,9 @@
                     }, 0);
                 }
             </script>
+            <script src="config.js"></script>
             <script>
-                // Replace with your actual Flask API URL
-                const flaskUrl = 'https://dev-ngaither.pythonanywhere.com/generate';
+                const flaskUrl = `${FLASK_BASE_URL}/generate`;
 
                 const fileInput = document.getElementById('yaml-upload');
                 const generateButton = document.getElementById('generate-button');

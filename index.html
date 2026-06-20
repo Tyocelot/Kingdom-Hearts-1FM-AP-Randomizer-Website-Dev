@@ -45,10 +45,14 @@
                     <p>Join the community, get help, and find races.</p>
                 </div>
                 <div>
-                    <a href="https://dev-ngaither.pythonanywhere.com/kh1.apworld">Download kh1.apworld</a>
+                    <a id="apworld-download-link" href="#">Download kh1.apworld</a>
                     <p>Get the latest apworld for generating a multiworld game.</p>
                 </div>
             </div>
         </div>
+        <script src="config.js"></script>
+        <script>
+            document.getElementById('apworld-download-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
+        </script>
     </body>
 </html>

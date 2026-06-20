@@ -52,8 +52,9 @@
                 <div id="leaderboard-result"></div>
             </p>
 
+            <script src="config.js"></script>
             <script>
-                const flaskBase = 'https://dev-ngaither.pythonanywhere.com';
+                const flaskBase = FLASK_BASE_URL;
                 const tokenStorageKey = 'kh1_daily_seed_token';
 
                 const authSection = document.getElementById('auth-section');
