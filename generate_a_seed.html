@@ -1802,6 +1802,9 @@
                             a.click();
                             document.body.removeChild(a);
                             window.URL.revokeObjectURL(url);
+                            if (seedLink && seedLink !== 'No seed link found.') {
+                                window.open(seedLink, '_blank');
+                            }
                             onSuccess(`Generation completed<br>Seed link is: <a href="${seedLink}">${seedLink}</a><br>Seed downloaded successfully.`);
                         } else {
                             const responseText = await response.text();
