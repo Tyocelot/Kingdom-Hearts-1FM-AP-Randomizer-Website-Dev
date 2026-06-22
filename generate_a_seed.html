@@ -1757,7 +1757,7 @@
                     }
                 });
 
-                async function generateKH1APR(file, discordId, flaskApGenerateUrl, onProgress, onError, onSuccess) {
+                async function generateKH1APR(file, discordId, flaskApGenerateUrl, onProgress, onError, onSuccess, seedTab) {
                     if (!file) {
                         onError("Please attach a file to send.");
                         return;
@@ -1782,6 +1782,7 @@
                         if (!response.ok) {
                             const errorText = await response.text();
                             onError(`HTTP error! status: ${response.status}, body: ${errorText}`);
+                            if (seedTab) seedTab.close();
                             return;
                         }
                         
@@ -1803,15 +1804,23 @@
                             document.body.removeChild(a);
                             window.URL.revokeObjectURL(url);
                             if (seedLink && seedLink !== 'No seed link found.') {
-                                window.open(seedLink, '_blank');
+                                if (seedTab) {
+                                    seedTab.location = seedLink;
+                                } else {
+                                    window.open(seedLink, '_blank');
+                                }
+                            } else if (seedTab) {
+                                seedTab.close();
                             }
                             onSuccess(`Generation completed<br>Seed link is: <a href="${seedLink}">${seedLink}</a><br>Seed downloaded successfully.`);
                         } else {
+                            if (seedTab) seedTab.close();
                             const responseText = await response.text();
                             onSuccess(`Generation completed.<br>Response: ${responseText}`);
                         }
 
                     } catch (error) {
+                        if (seedTab) seedTab.close();
                         onError(`An error occurred while sending the file or receiving the response: ${error.message}`);
                     }
                 }
@@ -1821,6 +1830,9 @@
                     if (file) {
                         resultDiv.innerHTML = ''; // Clear previous results
                         generateButton.disabled = true; // Disable button during generation
+                        // Open the tab synchronously within the click gesture so popup blockers allow it;
+                        // its location gets set to the seed link once generation finishes.
+                        const seedTab = window.open('', '_blank');
                         await generateKH1APR(
                             file,
                             '-98765',
@@ -1835,7 +1847,8 @@
                             (successMessage) => {
                                 resultDiv.innerHTML = successMessage;
                                 generateButton.disabled = false; // Re-enable on success
-                            }
+                            },
+                            seedTab
                         );
                     } else {
                         resultDiv.textContent = 'Please select a YAML file.';
