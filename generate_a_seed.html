@@ -1833,6 +1833,16 @@
                         // Open the tab synchronously within the click gesture so popup blockers allow it;
                         // its location gets set to the seed link once generation finishes.
                         const seedTab = window.open('', '_blank');
+                        if (seedTab) {
+                            seedTab.document.write(`
+                                <title>Generating seed...</title>
+                                <body style="font-family: sans-serif; text-align: center; margin-top: 3em;">
+                                    <h2>Generating your seed...</h2>
+                                    <p>This tab will automatically redirect to your seed link when generation is finished.<br>Please don't close it.</p>
+                                </body>
+                            `);
+                            seedTab.document.close();
+                        }
                         await generateKH1APR(
                             file,
                             '-98765',
