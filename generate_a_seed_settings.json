@@ -1,0 +1,1473 @@
+{
+  "tabs": [
+    {
+      "slug": "goal",
+      "name": "Goal",
+      "settings": [
+        {
+          "label": "Final Rest Door Key",
+          "id": "Final Rest Door Key",
+          "type": "select",
+          "options": [
+            {
+              "value": "Lucky Emblems",
+              "text": "Lucky Emblems"
+            },
+            {
+              "value": "Puppies",
+              "text": "Puppies"
+            },
+            {
+              "value": "Postcards",
+              "text": "Postcards"
+            },
+            {
+              "value": "Final Rest",
+              "text": "Final Rest"
+            },
+            {
+              "value": "Sephiroth",
+              "text": "Sephiroth"
+            },
+            {
+              "value": "Unknown",
+              "text": "Unknown"
+            }
+          ],
+          "default": "Lucky Emblems",
+          "description": "Determines how you obtain the Final Rest Door Key, which manifests the door in Final Rest, allowing you to challenge Ansem.",
+          "yamlKey": "final_rest_door_key",
+          "transform": "enum"
+        },
+        {
+          "label": "End of the World Unlock",
+          "id": "End of the World Unlock",
+          "type": "select",
+          "options": [
+            {
+              "value": "Lucky Emblems",
+              "text": "Lucky Emblems"
+            },
+            {
+              "value": "Item",
+              "text": "Item"
+            }
+          ],
+          "default": "Lucky Emblems",
+          "description": "Determines how you unlock End of the World.<br><br> Lucky Emblems: A number of Lucky Emblems are required.<br><br> Item: An item called \"End of the World\" is required.",
+          "yamlKey": "end_of_the_world_unlock",
+          "transform": "enum"
+        },
+        {
+          "label": "Required Lucky Emblems for End of the World",
+          "id": "Required Lucky Emblems for End of the World",
+          "type": "range",
+          "min": 1,
+          "max": 20,
+          "default": 7,
+          "description": "If End of the World Unlock is set to \"Lucky Emblems\", determines how many Lucky Emblems are required.",
+          "yamlKey": "required_lucky_emblems_eotw",
+          "transform": "raw"
+        },
+        {
+          "label": "Required Lucky Emblems for Final Rest Door Key",
+          "id": "Required Lucky Emblems for Final Rest Door Key",
+          "type": "range",
+          "min": 1,
+          "max": 20,
+          "default": 10,
+          "description": "If Final Rest Door Key is set to \"Lucky Emblems\", determines how many Lucky Emblems are required.",
+          "yamlKey": "required_lucky_emblems_door",
+          "transform": "raw"
+        },
+        {
+          "label": "Lucky Emblems in Item Pool",
+          "id": "Lucky Emblems in Item Pool",
+          "type": "range",
+          "min": 1,
+          "max": 20,
+          "default": 13,
+          "description": "Determines how many Lucky Emblems are in the item pool.<br><br> Has no effect if neither End of the World Unlock nor Final Rest Door Key are set to require Lucky Emblems.",
+          "yamlKey": "lucky_emblems_in_pool",
+          "transform": "raw"
+        },
+        {
+          "label": "Required Postcards",
+          "id": "Required Postcards",
+          "type": "range",
+          "min": 1,
+          "max": 10,
+          "default": 8,
+          "description": "If Final Rest Door Key is set to Postcards, determines how many Postcards are required.",
+          "yamlKey": "required_postcards",
+          "transform": "raw"
+        },
+        {
+          "label": "Required Puppies",
+          "id": "Required Puppies",
+          "type": "select",
+          "options": [
+            {
+              "value": "10",
+              "text": "10"
+            },
+            {
+              "value": "20",
+              "text": "20"
+            },
+            {
+              "value": "30",
+              "text": "30"
+            },
+            {
+              "value": "40",
+              "text": "40"
+            },
+            {
+              "value": "50",
+              "text": "50"
+            },
+            {
+              "value": "60",
+              "text": "60"
+            },
+            {
+              "value": "70",
+              "text": "70"
+            },
+            {
+              "value": "80",
+              "text": "80"
+            },
+            {
+              "value": "90",
+              "text": "90"
+            },
+            {
+              "value": "99",
+              "text": "99"
+            }
+          ],
+          "default": "80",
+          "description": "If Final Rest Door Key is set to Puppies, determines how many Puppies are required.",
+          "yamlKey": "required_puppies",
+          "transform": "raw"
+        },
+        {
+          "label": "Destiny Islands",
+          "id": "Destiny Islands",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "If on, adds a Destiny Islands item and a number of Raft Material items to the pool.<br><br> When \"Destiny Islands\" is found, Traverse Town will have the Seashore landing location added.<br><br> \"Raft Materials\" allow progress to Day 2 and Homecoming after collecting an amount specified in your settings.",
+          "yamlKey": "destiny_islands",
+          "transform": "bool"
+        },
+        {
+          "label": "Day 2 Materials",
+          "id": "Day 2 Materials",
+          "type": "range",
+          "min": 1,
+          "max": 20,
+          "default": 4,
+          "description": "Determines the number of Raft Materials required to progress to Day 2.",
+          "yamlKey": "day_2_materials",
+          "transform": "raw"
+        },
+        {
+          "label": "Homecoming Materials",
+          "id": "Homecoming Materials",
+          "type": "range",
+          "min": 1,
+          "max": 20,
+          "default": 10,
+          "description": "Determines the number of Raft Materials required to progress to Homecoming.",
+          "yamlKey": "homecoming_materials",
+          "transform": "raw"
+        },
+        {
+          "label": "Materials in Pool",
+          "id": "Materials in Pool",
+          "type": "range",
+          "min": 1,
+          "max": 20,
+          "default": 13,
+          "description": "Determines the number of Raft Materials in the item pool.",
+          "yamlKey": "materials_in_pool",
+          "transform": "raw"
+        }
+      ]
+    },
+    {
+      "slug": "locations",
+      "name": "Locations",
+      "settings": [
+        {
+          "label": "Super Bosses",
+          "id": "Super Bosses",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Determines if important items can be behind Super Bosses.",
+          "yamlKey": "super_bosses",
+          "transform": "bool"
+        },
+        {
+          "label": "Atlantica",
+          "id": "Atlantica",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Determines if important items can be found in Atlantica.",
+          "yamlKey": "atlantica",
+          "transform": "bool"
+        },
+        {
+          "label": "Cups",
+          "id": "Cups",
+          "type": "select",
+          "options": [
+            {
+              "value": "Off",
+              "text": "Off"
+            },
+            {
+              "value": "No Hades Cup",
+              "text": "No Hades Cup"
+            },
+            {
+              "value": "All Cups",
+              "text": "All Cups"
+            }
+          ],
+          "default": "Off",
+          "description": "Determines which, if any, cups can hold important items.",
+          "yamlKey": "cups",
+          "transform": "cups"
+        },
+        {
+          "label": "100 Acre Wood",
+          "id": "100 Acre Wood",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Determines if important items can be found in 100 Acre Wood.",
+          "yamlKey": "hundred_acre_wood",
+          "transform": "bool"
+        },
+        {
+          "label": "Jungle Slider",
+          "id": "Jungle Slider",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Determines if important items can be found in the Jungle Slider minigame.",
+          "yamlKey": "jungle_slider",
+          "transform": "bool"
+        },
+        {
+          "label": "Randomize Emblem Pieces",
+          "id": "Randomize Emblem Pieces",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Determines whether the emblem piece checks in Hollow Bastion are randomized.",
+          "yamlKey": "randomize_emblem_pieces",
+          "transform": "bool"
+        },
+        {
+          "label": "Randomize Postcards",
+          "id": "Randomize Postcards",
+          "type": "select",
+          "options": [
+            {
+              "value": "All",
+              "text": "All"
+            },
+            {
+              "value": "Chests",
+              "text": "Chests"
+            },
+            {
+              "value": "Vanilla",
+              "text": "Vanilla"
+            }
+          ],
+          "default": "All",
+          "description": "Determines whether the postcards should be in their vanilla locations, all randomized, or only postcards that appear in chests should be randomized.",
+          "yamlKey": "randomize_postcards",
+          "transform": "enum"
+        },
+        {
+          "label": "Randomize Puppies",
+          "id": "Randomize Puppies",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Determines if puppy locations are randomized.",
+          "yamlKey": "randomize_puppies",
+          "transform": "bool"
+        },
+        {
+          "label": "Puppy Value",
+          "id": "Puppy Value",
+          "type": "range",
+          "min": 1,
+          "max": 99,
+          "default": 3,
+          "description": "If puppies are randomized, determines how many puppies each \"Puppy\" item is worth.",
+          "yamlKey": "puppy_value",
+          "transform": "raw"
+        }
+      ]
+    },
+    {
+      "slug": "levels",
+      "name": "Levels",
+      "settings": [
+        {
+          "label": "EXP Multiplier",
+          "id": "EXP Multiplier",
+          "type": "range",
+          "min": 1,
+          "max": 8,
+          "default": 4,
+          "description": "Determines the amount of experience party members need to level up.",
+          "yamlKey": "exp_multiplier",
+          "transform": "multiply16"
+        },
+        {
+          "label": "Level Checks",
+          "id": "Level Checks",
+          "type": "range",
+          "min": 0,
+          "max": 99,
+          "default": 99,
+          "description": "Determines the latest level which can yield rewards on level up.",
+          "yamlKey": "level_checks",
+          "transform": "raw"
+        },
+        {
+          "label": "Slot 2 Level Checks",
+          "id": "Slot 2 Level Checks",
+          "type": "range",
+          "min": 0,
+          "max": 33,
+          "default": 0,
+          "description": "Determines the amount of secondary bonuses found on levels.",
+          "yamlKey": "slot_2_level_checks",
+          "transform": "raw"
+        },
+        {
+          "label": "Max Level for Slot 2 Level Checks",
+          "id": "Max Level for Slot 2 Level Checks",
+          "type": "range",
+          "min": 2,
+          "max": 100,
+          "default": 50,
+          "description": "Determines the max level which can yield a secondary bonus.",
+          "yamlKey": "max_level_for_slot_2_level_checks",
+          "transform": "raw"
+        },
+        {
+          "label": "Force Stats on Levels Starting at Level",
+          "id": "Force Stats on Levels Starting at Level",
+          "type": "range",
+          "min": 2,
+          "max": 101,
+          "default": 2,
+          "description": "Determines at which level only stat increases can be found.",
+          "yamlKey": "force_stats_on_levels",
+          "transform": "raw"
+        },
+        {
+          "label": "Strength Increases",
+          "id": "Strength Increases",
+          "type": "range",
+          "min": 0,
+          "max": 100,
+          "default": 24,
+          "description": "Determines how many strength increases are in the item pool.",
+          "yamlKey": "strength_increase",
+          "transform": "raw"
+        },
+        {
+          "label": "Defense Increases",
+          "id": "Defense Increases",
+          "type": "range",
+          "min": 0,
+          "max": 100,
+          "default": 24,
+          "description": "Determines how many defense increases are in the item pool.",
+          "yamlKey": "defense_increase",
+          "transform": "raw"
+        },
+        {
+          "label": "HP Increases",
+          "id": "HP Increases",
+          "type": "range",
+          "min": 0,
+          "max": 100,
+          "default": 23,
+          "description": "Determines how many HP increases are in the item pool.",
+          "yamlKey": "hp_increase",
+          "transform": "raw"
+        },
+        {
+          "label": "AP Increases",
+          "id": "AP Increases",
+          "type": "range",
+          "min": 0,
+          "max": 100,
+          "default": 18,
+          "description": "Determines how many AP increases are in the item pool.",
+          "yamlKey": "ap_increase",
+          "transform": "raw"
+        },
+        {
+          "label": "MP Increases",
+          "id": "MP Increases",
+          "type": "range",
+          "min": 0,
+          "max": 20,
+          "default": 7,
+          "description": "Determines how many MP increases are in the item pool.",
+          "yamlKey": "mp_increase",
+          "transform": "raw"
+        },
+        {
+          "label": "Accessory Slot Increases",
+          "id": "Accessory Slot Increases",
+          "type": "range",
+          "min": 0,
+          "max": 6,
+          "default": 1,
+          "description": "Determines how many Accessory Slot increases are in the item pool.",
+          "yamlKey": "accessory_slot_increase",
+          "transform": "raw"
+        },
+        {
+          "label": "Item Slot Increases",
+          "id": "Item Slot Increases",
+          "type": "range",
+          "min": 0,
+          "max": 5,
+          "default": 3,
+          "description": "Determines how many Item Slot increases are in the item pool.",
+          "yamlKey": "item_slot_increase",
+          "transform": "raw"
+        }
+      ]
+    },
+    {
+      "slug": "equipment",
+      "name": "Equipment",
+      "settings": [
+        {
+          "label": "Keyblades Unlock Chests",
+          "id": "Keyblades Unlock Chests",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "If toggled on, the player is required to have a certain keyblade to open chests in certain worlds.<br><br> TT - Lionheart<br> WL - Lady Luck<br> OC - Olympia<br> DJ - Jungle King<br> AG - Three Wishes<br> MS - Wishing Star<br> AL - Crabclaw<br> HT - Pumpkinhead<br> NL - Fairy Harp<br> HB - Divine Rose<br> EotW - Oblivion<br> HAW - Spellbinder<br> DI - Oathkeeper",
+          "yamlKey": "keyblades_unlock_chests",
+          "transform": "bool"
+        },
+        {
+          "label": "Keyblade Stats",
+          "id": "Keyblade Stats",
+          "type": "select",
+          "options": [
+            {
+              "value": "Vanilla",
+              "text": "Vanilla"
+            },
+            {
+              "value": "Randomize",
+              "text": "Randomize"
+            },
+            {
+              "value": "Shuffle",
+              "text": "Shuffle"
+            }
+          ],
+          "default": "Randomize",
+          "description": "Determines if keyblade stats should be shuffled, randomized, or remain vanilla.",
+          "yamlKey": "keyblade_stats",
+          "transform": "bool"
+        },
+        {
+          "label": "Bad Starting Weapons",
+          "id": "Bad Starting Weapons",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Determines if the starting weapons should have their vanilla stats.",
+          "yamlKey": "bad_starting_weapons",
+          "transform": "bool"
+        },
+        {
+          "label": "Keyblade Max STR",
+          "id": "Keyblade Max STR",
+          "type": "range",
+          "min": 0,
+          "max": 20,
+          "default": 14,
+          "description": "If Keyblade stats are randomized, determines the Max STR a keyblade can yield.",
+          "yamlKey": "keyblade_max_str",
+          "transform": "raw"
+        },
+        {
+          "label": "Keyblade Min STR",
+          "id": "Keyblade Min STR",
+          "type": "range",
+          "min": 0,
+          "max": 20,
+          "default": 3,
+          "description": "If Keyblade stats are randomized, determines the Min STR a keyblade can yield.",
+          "yamlKey": "keyblade_min_str",
+          "transform": "raw"
+        },
+        {
+          "label": "Keyblade Max Crit Rate",
+          "id": "Keyblade Max Crit Rate",
+          "type": "range",
+          "min": 0,
+          "max": 200,
+          "default": 200,
+          "description": "If Keyblade stats are randomized, determines the Max Crit Rate a keyblade can yield.",
+          "yamlKey": "keyblade_max_crit_rate",
+          "transform": "raw"
+        },
+        {
+          "label": "Keyblade Min Crit Rate",
+          "id": "Keyblade Min Crit Rate",
+          "type": "range",
+          "min": 0,
+          "max": 200,
+          "default": 0,
+          "description": "If Keyblade stats are randomized, determines the Min Crit Rate a keyblade can yield.",
+          "yamlKey": "keyblade_min_crit_rate",
+          "transform": "raw"
+        },
+        {
+          "label": "Keyblade Max Crit Strength",
+          "id": "Keyblade Max Crit Strength",
+          "type": "range",
+          "min": 0,
+          "max": 16,
+          "default": 16,
+          "description": "If Keyblade stats are randomized, determines the Max Crit Strength bonus a keyblade can yield.",
+          "yamlKey": "keyblade_max_crit_str",
+          "transform": "raw"
+        },
+        {
+          "label": "Keyblade Min Crit Strength",
+          "id": "Keyblade Min Crit Strength",
+          "type": "range",
+          "min": 0,
+          "max": 16,
+          "default": 0,
+          "description": "If Keyblade stats are randomized, determines the Min Crit Strength bonus a keyblade can yield.",
+          "yamlKey": "keyblade_min_crit_str",
+          "transform": "raw"
+        },
+        {
+          "label": "Keyblade Max Recoil",
+          "id": "Keyblade Max Recoil",
+          "type": "range",
+          "min": 1,
+          "max": 90,
+          "default": 90,
+          "description": "If Keyblade stats are randomized, determines the Max Recoil a keyblade can yield.",
+          "yamlKey": "keyblade_max_recoil",
+          "transform": "raw"
+        },
+        {
+          "label": "Keyblade Min Recoil",
+          "id": "Keyblade Min Recoil",
+          "type": "range",
+          "min": 1,
+          "max": 90,
+          "default": 1,
+          "description": "If Keyblade stats are randomized, determines the Min Recoil a keyblade can yield.",
+          "yamlKey": "keyblade_min_recoil",
+          "transform": "raw"
+        },
+        {
+          "label": "Keyblade Max MP",
+          "id": "Keyblade Max MP",
+          "type": "range",
+          "min": -2,
+          "max": 5,
+          "default": 3,
+          "description": "If Keyblade stats are randomized, determines the Max MP a keyblade can yield.",
+          "yamlKey": "keyblade_max_mp",
+          "transform": "raw"
+        },
+        {
+          "label": "Keyblade Min MP",
+          "id": "Keyblade Min MP",
+          "type": "range",
+          "min": -2,
+          "max": 5,
+          "default": -2,
+          "description": "If Keyblade stats are randomized, determines the Min MP a keyblade can yield.",
+          "yamlKey": "keyblade_min_mp",
+          "transform": "raw"
+        },
+        {
+          "label": "Accessory Augments",
+          "id": "Accessory Augments",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Accessories are assigned special effects in addition to their normal effects.<br><br> These can be either positive or negative.",
+          "yamlKey": "accessory_augments",
+          "transform": "bool"
+        },
+        {
+          "label": "Augment Abilities from Pool",
+          "id": "Augment Abilities from Pool",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "If accessory augments is on, if an accessory's augment is assigned an ability, that ability can only be found on that accessory.",
+          "yamlKey": "augment_abilities_from_pool",
+          "transform": "bool"
+        },
+        {
+          "label": "Randomize Party Member Starting Accessories",
+          "id": "Randomize Party Member Starting Accessories",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Determines if the 10 starting accessories (normally given to Aladdin, Ariel, Jack, Peter Pan, and Beast) are randomized and distributed amongst all party members randomly.",
+          "yamlKey": "randomize_party_member_starting_accessories",
+          "transform": "bool"
+        }
+      ]
+    },
+    {
+      "slug": "synth",
+      "name": "Synth",
+      "settings": [
+        {
+          "label": "Mythril Price",
+          "id": "Mythril Price",
+          "type": "range",
+          "min": 100,
+          "max": 5000,
+          "default": 500,
+          "description": "Determines the cost of Mythril in shops.",
+          "yamlKey": "mythril_price",
+          "transform": "raw"
+        },
+        {
+          "label": "Mythril in Pool",
+          "id": "Mythril in Pool",
+          "type": "range",
+          "min": 16,
+          "max": 30,
+          "default": 20,
+          "description": "Determines the number of Mythril in the item pool.",
+          "yamlKey": "mythril_in_pool",
+          "transform": "raw"
+        },
+        {
+          "label": "Orichalcum Price",
+          "id": "Orichalcum Price",
+          "type": "range",
+          "min": 100,
+          "max": 5000,
+          "default": 500,
+          "description": "Determines the cost of Orichalcum in shops.",
+          "yamlKey": "orichalcum_price",
+          "transform": "raw"
+        },
+        {
+          "label": "Orichalcum in Pool",
+          "id": "Orichalcum in Pool",
+          "type": "range",
+          "min": 17,
+          "max": 30,
+          "default": 20,
+          "description": "Determines the number of Orichalcum in the item pool.",
+          "yamlKey": "orichalcum_in_pool",
+          "transform": "raw"
+        }
+      ]
+    },
+    {
+      "slug": "ap-mp-costs",
+      "name": "AP / MP Costs",
+      "settings": [
+        {
+          "label": "Randomize AP Costs",
+          "id": "Randomize AP Costs",
+          "type": "select",
+          "options": [
+            {
+              "value": "Off",
+              "text": "Off"
+            },
+            {
+              "value": "Randomize",
+              "text": "Randomize"
+            },
+            {
+              "value": "Shuffle",
+              "text": "Shuffle"
+            },
+            {
+              "value": "Distribute",
+              "text": "Distribute"
+            }
+          ],
+          "default": "Randomize",
+          "description": "Determines if AP costs for abilities are changed.<br><br> Off: No randomization.<br><br> Randomize: Ability AP costs will be randomized to the specified max and min.<br><br> Shuffle: Ability AP costs will be shuffled amongst themselves.<br><br> Distribute: Ability AP costs will be totalled and re-distributed randomly between the specified max and min.",
+          "yamlKey": "randomize_ap_costs",
+          "transform": "bool"
+        },
+        {
+          "label": "Max AP Cost",
+          "id": "Max AP Cost",
+          "type": "range",
+          "min": 4,
+          "max": 9,
+          "default": 5,
+          "description": "If AP costs are set to \"Randomize\" or \"Distribute\", determines the max AP cost an ability can have.",
+          "yamlKey": "max_ap_cost",
+          "transform": "raw"
+        },
+        {
+          "label": "Min AP Cost",
+          "id": "Min AP Cost",
+          "type": "range",
+          "min": 0,
+          "max": 2,
+          "default": 0,
+          "description": "If AP costs are set to \"Randomize\" or \"Distribute\", determines the min AP cost an ability can have.",
+          "yamlKey": "min_ap_cost",
+          "transform": "raw"
+        },
+        {
+          "label": "Randomize Spell MP Costs",
+          "id": "Randomize Spell MP Costs",
+          "type": "select",
+          "options": [
+            {
+              "value": "Off",
+              "text": "Off"
+            },
+            {
+              "value": "Randomize",
+              "text": "Randomize"
+            },
+            {
+              "value": "Shuffle",
+              "text": "Shuffle"
+            }
+          ],
+          "default": "Off",
+          "description": "Determines if spell's MP costs are changed.<br><br> Off: No randomization.<br><br> Randomize: Spell MP costs will be randomized to the specified max and min.<br><br> Shuffle: Spell MP costs will be shuffled amongst themselves.",
+          "yamlKey": "randomize_spell_mp_costs",
+          "transform": "enum"
+        },
+        {
+          "label": "Spell MP Cost Min",
+          "id": "Spell MP Cost Min",
+          "type": "select",
+          "options": [
+            {
+              "value": "Half Pip",
+              "text": "Half Pip"
+            },
+            {
+              "value": "Pip",
+              "text": "Pip"
+            },
+            {
+              "value": "1 MP",
+              "text": "1 MP"
+            },
+            {
+              "value": "2 MP",
+              "text": "2 MP"
+            },
+            {
+              "value": "3 MP",
+              "text": "3 MP"
+            }
+          ],
+          "default": "Half Pip",
+          "description": "If Spell MP costs are set to \"Randomize\", determines the min MP cost a spell can have.",
+          "yamlKey": "spell_mp_cost_min",
+          "transform": "enum"
+        },
+        {
+          "label": "Spell MP Cost Max",
+          "id": "Spell MP Cost Max",
+          "type": "select",
+          "options": [
+            {
+              "value": "Half Pip",
+              "text": "Half Pip"
+            },
+            {
+              "value": "Pip",
+              "text": "Pip"
+            },
+            {
+              "value": "1 MP",
+              "text": "1 MP"
+            },
+            {
+              "value": "2 MP",
+              "text": "2 MP"
+            },
+            {
+              "value": "3 MP",
+              "text": "3 MP"
+            }
+          ],
+          "default": "3 MP",
+          "description": "If Spell MP costs are set to \"Randomize\", determines the max MP cost a spell can have.",
+          "yamlKey": "spell_mp_cost_max",
+          "transform": "enum"
+        },
+        {
+          "label": "Individual Spell Level Costs",
+          "id": "Individual Spell Level Costs",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "If randomizing or shuffling spell MP costs, each indiviudal level of a spell (for example Fire vs Fira vs Firaga) can have different MP costs.",
+          "yamlKey": "individual_spell_level_costs",
+          "transform": "bool"
+        },
+        {
+          "label": "Scaling Spell Potency",
+          "id": "Scaling Spell Potency",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "If randomizing or shuffling spell MP costs, each spell will have its effectiveness scaled relative to its new cost.",
+          "yamlKey": "scaling_spell_potency",
+          "transform": "bool"
+        }
+      ]
+    },
+    {
+      "slug": "toggles",
+      "name": "Toggles",
+      "settings": [
+        {
+          "label": "EXP Zero in Pool",
+          "id": "EXP Zero in Pool",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Determines if EXP Zero is added to the item pool.<br><br> This is redundant if you plan on playing on Proud mode.",
+          "yamlKey": "exp_zero_in_pool",
+          "transform": "bool"
+        },
+        {
+          "label": "One HP",
+          "id": "One HP",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Forces Sora's max HP to 1 and removes the low health warning sound.",
+          "yamlKey": "one_hp",
+          "transform": "bool"
+        },
+        {
+          "label": "4by3",
+          "id": "4by3",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Changes the aspect ratio to 4 by 3.",
+          "yamlKey": "four_by_three",
+          "transform": "bool"
+        },
+        {
+          "label": "Beep Hack",
+          "id": "Beep Hack",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Removes the low health warning sound.",
+          "yamlKey": "beep_hack",
+          "transform": "bool"
+        },
+        {
+          "label": "Consistent Finishers",
+          "id": "Consistent Finishers",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Makes 30% chance finishers occur 100% of the time.",
+          "yamlKey": "consistent_finishers",
+          "transform": "bool"
+        },
+        {
+          "label": "Early Skip",
+          "id": "Early Skip",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Allows skipping cutscenes immediately that normally are unskippable in the first few seconds.",
+          "yamlKey": "early_skip",
+          "transform": "bool"
+        },
+        {
+          "label": "Fast Camera",
+          "id": "Fast Camera",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Speeds up camera movement and camera centering.",
+          "yamlKey": "fast_camera",
+          "transform": "bool"
+        },
+        {
+          "label": "Faster Animations",
+          "id": "Faster Animations",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Speeds up animations during which you can't play.",
+          "yamlKey": "faster_animations",
+          "transform": "bool"
+        },
+        {
+          "label": "Unlock 0 Volume",
+          "id": "Unlock 0 Volume",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Volume 1 mutes the audio channel.",
+          "yamlKey": "unlock_0_volume",
+          "transform": "bool"
+        },
+        {
+          "label": "Unskippable",
+          "id": "Unskippable",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Makes normally unskippable cutscenes skippable",
+          "yamlKey": "unskippable",
+          "transform": "bool"
+        },
+        {
+          "label": "Auto Save",
+          "id": "Auto Save",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "If on, enables auto saving.<br><br> L1 + L2 + R1 + R2 + DPad Up: Load most recent auto save.<br><br> L1 + L2 + R1 + R2 + DPad Right: Load second most recent auto save.<br><br> L1 + L2 + R1 + R2 + DPad Down: Load third most recent auto save.<br><br> L1 + L2 + R1 + R2 + DPad Left: Load fourth most recent auto save.",
+          "yamlKey": "auto_save",
+          "transform": "bool"
+        },
+        {
+          "label": "Warp Anywhere",
+          "id": "Warp Anywhere",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "Enables the player to warp at any time, even when not at a save point.<br><br> L1 + L2 + R2 + Select: Opens the save/warp menu.",
+          "yamlKey": "warp_anywhere",
+          "transform": "bool"
+        }
+      ]
+    },
+    {
+      "slug": "misc",
+      "name": "Misc",
+      "settings": [
+        {
+          "label": "Slot Name",
+          "id": "Slot Name",
+          "type": "text",
+          "default": "Player{number}",
+          "description": "Defines what the slot name should be for hosting the game using Archipelago.<br><br> You can ignore this if you plan to play without using the server/client.",
+          "yamlKey": null,
+          "transform": "slotName"
+        },
+        {
+          "label": "Starting Worlds",
+          "id": "Starting Worlds",
+          "type": "range",
+          "min": 0,
+          "max": 10,
+          "default": 4,
+          "description": "Determines the amount of worlds the player starts with in addition to Traverse Town.",
+          "yamlKey": "starting_worlds",
+          "transform": "raw"
+        },
+        {
+          "label": "Starting Tools",
+          "id": "Starting Tools",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Determines if the player should start with Scan and Dodge Roll.",
+          "yamlKey": "starting_tools",
+          "transform": "bool"
+        },
+        {
+          "label": "Stacking World Items",
+          "id": "Stacking World Items",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Determines if world key items should be replaced with additional world items in the pool.<br><br> Collecting multiple of a world item grants you that world's key item.<br><br> If on, Halloween Town Key Item Bundle is forced on.<br><br> WL: Footprints<br> OC: Entry Pass<br> DJ: Slides<br> AL: Crystal Trident<br> HT: Forget-Me-Not and Jack-In-The-Box<br> HB: Theon Vol. 6",
+          "yamlKey": "stacking_world_items",
+          "transform": "bool"
+        },
+        {
+          "label": "Halloween Town Key Item Bundle",
+          "id": "Halloween Town Key Item Bundle",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Determines if collecting Forget-Me-Not automatically grants the player Jack-In-The-Box.",
+          "yamlKey": "halloween_town_key_item_bundle",
+          "transform": "bool"
+        },
+        {
+          "label": "Interact in Battle",
+          "id": "Interact in Battle",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Determines if the player can interact with objects they normally couldn't in battle.",
+          "yamlKey": "interact_in_battle",
+          "transform": "bool"
+        },
+        {
+          "label": "Logic Difficulty",
+          "id": "Logic Difficulty",
+          "type": "select",
+          "options": [
+            {
+              "value": "Beginner",
+              "text": "Beginner"
+            },
+            {
+              "value": "Normal",
+              "text": "Normal"
+            },
+            {
+              "value": "Proud",
+              "text": "Proud"
+            },
+            {
+              "value": "Minimal",
+              "text": "Minimal"
+            }
+          ],
+          "default": "Normal",
+          "description": "Determines what the randomizer logic may expect you to do to reach certain locations.<br><br> Beginner: Logic only expects what would be the natural solution in vanilla gameplay or similar, as well as a guarantee of tools for boss fights.<br><br> Normal: Logic expects some clever use of abilities, exploration of options, and competent combat ability; generally does not require advanced knowledge.<br><br> Proud: Logic expects advanced knowledge of tricks and obscure interactions, such as using Combo Master, Dumbo, and other unusual methods to reach locations.<br><br> Minimal: Logic expects the bare minimum to get to locations; may require extensive grinding, beating fights with no tools, and performing very difficult or tedious tricks.",
+          "yamlKey": "logic_difficulty",
+          "transform": "enum"
+        },
+        {
+          "label": "Extra Shared Abilities",
+          "id": "Extra Shared Abilities",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Determines if the item pool contains additional shared abilities, which can stack.<br><br> For example, equipping more High Jumps make you jump higher, more Super Glides makes you glide faster.",
+          "yamlKey": "extra_shared_abilities",
+          "transform": "bool"
+        },
+        {
+          "label": "Death Link",
+          "id": "Death Link",
+          "type": "select",
+          "options": [
+            {
+              "value": "Off",
+              "text": "Off"
+            },
+            {
+              "value": "Toggle",
+              "text": "Toggle"
+            },
+            {
+              "value": "On",
+              "text": "On"
+            }
+          ],
+          "default": "Off",
+          "description": "If another player in the multiworld is KO'ed, so is Sora. The opposite is also true.",
+          "yamlKey": "death_link",
+          "transform": "bool"
+        },
+        {
+          "label": "Donald Death Link",
+          "id": "Donald Death Link",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "If Donald is KO'ed, so is Sora.",
+          "yamlKey": "donald_death_link",
+          "transform": "bool"
+        },
+        {
+          "label": "Goofy Death Link",
+          "id": "Goofy Death Link",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "No",
+          "description": "If Goofy is KO'ed, so is Sora.",
+          "yamlKey": "goofy_death_link",
+          "transform": "bool"
+        },
+        {
+          "label": "Remote Items",
+          "id": "Remote Items",
+          "type": "select",
+          "options": [
+            {
+              "value": "Off",
+              "text": "Off"
+            },
+            {
+              "value": "Allow",
+              "text": "Allow"
+            },
+            {
+              "value": "Full",
+              "text": "Full"
+            }
+          ],
+          "default": "Off",
+          "description": "Determines if KH1 items can be placed in KH1 locations in such a way that they are forced to be remote items.<br><br> Off: KH1 items placed in KH1 will all be placed locally and do not require client/server connection to obtain.<br><br> Allow: KH1 items placed in KH1 can be placed in locations that require client/server connection, but are otherwise placed locally.<br><br> Full: All locations in KH1 are handled by the client/server and nothing is placed locally.<br><br> If you are unsure what to choose - leave this as \"Off\".",
+          "yamlKey": "remote_items",
+          "transform": "bool"
+        },
+        {
+          "label": "Shorten Go Mode",
+          "id": "Shorten Go Mode",
+          "type": "select",
+          "options": [
+            {
+              "value": "Yes",
+              "text": "Yes"
+            },
+            {
+              "value": "No",
+              "text": "No"
+            }
+          ],
+          "default": "Yes",
+          "description": "Determines if the player should be warped to the credits after defeating Ansem 1 > Darkside > Ansem 2 in Homecoming.",
+          "yamlKey": "shorten_go_mode",
+          "transform": "bool"
+        }
+      ]
+    }
+  ]
+}

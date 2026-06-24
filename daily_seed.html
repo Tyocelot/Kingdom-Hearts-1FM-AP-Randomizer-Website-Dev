@@ -20,37 +20,28 @@
                         document.getElementById('page-subtitle').textContent = 'Daily Seed';
                     });
             </script>
-            <style>
-                .settings_generator_table {
-                    border-collapse: collapse;
-                }
-                .settings_generator_table th, .settings_generator_table td {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    text-align: left;
-                }
-            </style>
+            <div class="page-intro">
+                <p>Log in with Discord to fetch today's daily seed. Everyone gets the same seed, but in their own room so runs can be timed independently.</p>
+                <p>Once you finish, come back and click "Check Completion" to record your time on the leaderboard.</p>
+            </div>
 
-            <p>
-                <br>
-                Log in with Discord to fetch today's daily seed.  Everyone gets the same seed, but in their own room so runs can be timed independently.<br>
-                Once you finish, come back and click "Check Completion" to record your time on the leaderboard.
-                <br><br>
+            <div class="card daily-seed-card">
+                <div id="auth-section" class="auth-section"></div>
 
-                <div id="auth-section"></div>
-                <br>
-
-                <div id="action-section" style="display:none;">
+                <div id="action-section" class="action-row" style="display:none;">
                     <button id="fetch-daily-seed-button">Fetch Daily Seed</button>
-                    <button id="check-completion-button">Check Completion</button>
-                    <div id="daily-seed-result"></div>
+                    <button id="check-completion-button" class="secondary">Check Completion</button>
                 </div>
-                <br>
+                <div id="daily-seed-result" class="result-box"></div>
+            </div>
 
-                <h3>Leaderboard</h3>
-                <button id="refresh-leaderboard-button">Refresh Leaderboard</button>
+            <div class="card leaderboard-card">
+                <div class="leaderboard-header">
+                    <h3>Leaderboard</h3>
+                    <button id="refresh-leaderboard-button" class="ghost-button">Refresh</button>
+                </div>
                 <div id="leaderboard-result"></div>
-            </p>
+            </div>
 
             <script src="config.js"></script>
             <script>
@@ -83,25 +74,35 @@
                     return token;
                 }
 
+                function setResultMessage(el, message, type = 'info') {
+                    el.innerHTML = message;
+                    el.classList.remove('success', 'error');
+                    if (type === 'success' || type === 'error') {
+                        el.classList.add(type);
+                    }
+                }
+
                 function renderAuthSection() {
                     const token = getStoredToken();
                     if (!token) {
                         const returnTo = encodeURIComponent(window.location.origin + window.location.pathname);
-                        authSection.innerHTML = `<a href="${flaskBase}/oauth/login?return_to=${returnTo}">Login with Discord</a>`;
+                        authSection.innerHTML = `<a class="discord-login" href="${flaskBase}/oauth/login?return_to=${returnTo}">Login with Discord</a>`;
                         actionSection.style.display = 'none';
                         return;
                     }
 
                     const payload = decodeTokenPayload(token);
                     const name = (payload && payload.discord_name) || 'Discord user';
-                    authSection.innerHTML = `Logged in as <strong>${name}</strong> &nbsp; <a href="#" id="logout-link">Logout</a>`;
+                    authSection.innerHTML = `
+                        <span class="auth-status"><span class="status-dot"></span>Logged in as <strong>${escapeHtml(name)}</strong></span>
+                        <a href="#" id="logout-link">Logout</a>`;
                     document.getElementById('logout-link').addEventListener('click', (e) => {
                         e.preventDefault();
                         localStorage.removeItem(tokenStorageKey);
-                        dailySeedResult.innerHTML = '';
+                        setResultMessage(dailySeedResult, '');
                         renderAuthSection();
                     });
-                    actionSection.style.display = 'block';
+                    actionSection.style.display = 'flex';
                 }
 
                 // Pick up the token handed back from the OAuth callback redirect.
@@ -135,11 +136,11 @@
                 async function fetchDailySeed() {
                     const token = getStoredToken();
                     if (!token) {
-                        dailySeedResult.textContent = 'Please login with Discord first.';
+                        setResultMessage(dailySeedResult, 'Please login with Discord first.', 'error');
                         return;
                     }
 
-                    dailySeedResult.textContent = 'Fetching daily seed...';
+                    setResultMessage(dailySeedResult, 'Fetching daily seed...', 'info');
                     try {
                         const response = await fetchWithTimeout(`${flaskBase}/daily_seed`, {
                             method: 'POST',
@@ -148,7 +149,7 @@
 
                         if (!response.ok) {
                             const errorText = await response.text();
-                            dailySeedResult.textContent = `Error: ${response.status} ${errorText}`;
+                            setResultMessage(dailySeedResult, `Error: ${response.status} ${escapeHtml(errorText)}`, 'error');
                             return;
                         }
 
@@ -165,33 +166,33 @@
                             a.click();
                             document.body.removeChild(a);
                             window.URL.revokeObjectURL(url);
-                            dailySeedResult.innerHTML = `Daily seed downloaded.<br>Room link: <a href="${roomLink}">${roomLink}</a>`;
+                            setResultMessage(dailySeedResult, `Daily seed downloaded.<br>Room link: <a href="${roomLink}">${roomLink}</a>`, 'success');
                         } else {
                             const responseText = await response.text();
-                            dailySeedResult.textContent = `Response: ${responseText}`;
+                            setResultMessage(dailySeedResult, `Response: ${escapeHtml(responseText)}`, 'info');
                         }
                     } catch (error) {
-                        dailySeedResult.textContent = describeFetchFailure(error);
+                        setResultMessage(dailySeedResult, describeFetchFailure(error), 'error');
                     }
                 }
 
                 async function checkCompletion() {
                     const token = getStoredToken();
                     if (!token) {
-                        dailySeedResult.textContent = 'Please login with Discord first.';
+                        setResultMessage(dailySeedResult, 'Please login with Discord first.', 'error');
                         return;
                     }
 
-                    dailySeedResult.textContent = 'Checking completion...';
+                    setResultMessage(dailySeedResult, 'Checking completion...', 'info');
                     try {
                         const response = await fetchWithTimeout(`${flaskBase}/daily_seed_complete`, {
                             method: 'POST',
                             headers: { 'Authorization': `Bearer ${token}` }
                         });
                         const data = await response.json();
-                        dailySeedResult.textContent = data.message || data.error || 'Unknown response.';
+                        setResultMessage(dailySeedResult, escapeHtml(data.message || data.error || 'Unknown response.'), data.message ? 'success' : 'error');
                     } catch (error) {
-                        dailySeedResult.textContent = describeFetchFailure(error);
+                        setResultMessage(dailySeedResult, describeFetchFailure(error), 'error');
                     }
                 }
 
@@ -220,14 +221,14 @@
 
                         const rows = leaderboard.map(entry => `
                             <tr>
-                                <td>${entry.rank}</td>
+                                <td><span class="rank-badge rank-${entry.rank}">${escapeHtml(entry.rank)}</span></td>
                                 <td>${escapeHtml(entry.discord_name)}</td>
                                 <td>${escapeHtml(entry.run_time === null ? 'null' : entry.run_time)}</td>
                             </tr>`).join('');
                         leaderboardResult.innerHTML = `
-                            <table class="settings_generator_table" style="margin: 0;">
-                                <tr><th>#</th><th>Player</th><th>Time</th></tr>
-                                ${rows}
+                            <table class="location-table">
+                                <thead><tr><th>#</th><th>Player</th><th>Time</th></tr></thead>
+                                <tbody>${rows}</tbody>
                             </table>`;
                     } catch (error) {
                         leaderboardResult.textContent = describeFetchFailure(error);

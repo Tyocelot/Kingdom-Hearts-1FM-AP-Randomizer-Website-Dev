@@ -5,7 +5,7 @@
             "label": "Serve site locally",
             "type": "shell",
             "command": "python",
-            "args": ["-m", "http.server", "8000"],
+            "args": ["serve.py", "8000"],
             "isBackground": true,
             "problemMatcher": {
                 "pattern": {

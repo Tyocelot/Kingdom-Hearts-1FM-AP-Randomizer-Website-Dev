@@ -10,46 +10,60 @@
             <!-- Make dark mode -->
             <meta name    = "color-scheme" content = "light dark"/>
             <div id="header-container"></div>
-            <p><br><br>
-
-                <h2>Generating a multiworld game</h2>
+            <h2>Generating a multiworld game</h2>
+            <ol class="guide-steps">
                 <li><a href="https://archipelago.gg/tutorial/">Install Archipelago</a> if you haven't already done so</li>
                 <li>Download the latest <a id="apworld-download-link" href="#">kh1.apworld</a></li>
-                <li>Navigate to your Archipelago installation folder, typically found at "C:\ProgramData\Archipelago"</li>
-                <p><img src="./images/archipelago_folder.png" border="1"></p>
-                <li>Open the "lib" folder</li>
-                <p><img src="./images/lib_folder.png" border="1"></p>
-                <li>Open the "worlds" folder inside "lib", and delete the existing "kh1.apworld".</li>
-                <p><img src="./images/delete_kh1_apworld.png" border="1"></p>
+                <li>Navigate to your Archipelago installation folder, typically found at "C:\ProgramData\Archipelago"
+                    <img src="./images/archipelago_folder.png">
+                </li>
+                <li>Open the "lib" folder
+                    <img src="./images/lib_folder.png">
+                </li>
+                <li>Open the "worlds" folder inside "lib", and delete the existing "kh1.apworld".
+                    <img src="./images/delete_kh1_apworld.png">
+                </li>
                 <li>Move the kh1.apworld file you downloaded into this "worlds" folder.</li>
-                <li>Next, gather all players settings files into your "/Players/" folder.</li>
-                <p><img src="./images/yamls_gathered.png" border="1"></p>
-                <li>Run "ArchipelagoGenerate.exe".</li>
-                <p><img src="./images/run_generate.png" border="1"></p>
-                <li>After a short wait, you should see a new file in your "output" folder.</li>
-                <p><img src="./images/output_file.png" border="1"></p>
-                <li>Navigate to <a href="https://archipelago.gg/uploads">https://archipelago.gg/uploads/</a> and upload the file in your output folder.</li>
-                <p><img src="./images/host_game_upload.png" border="1"></p>
-                <li>You should be redirected to Seed Info page.  Click "Create New Room".</li>
-                <p><img src="./images/create_new_room.png" border="1"></p>
-                <li>You should be redirected to a new room page.  This will contain a link to download the patch file for the KH1 players, all the information they need to connect, and all the files/info for other players.</li>
-                <p><img src="./images/new_room.png" border="1"></p>
+                <li>Next, gather all players settings files into your "/Players/" folder.
+                    <img src="./images/yamls_gathered.png">
+                </li>
+                <li>Run "ArchipelagoGenerate.exe".
+                    <img src="./images/run_generate.png">
+                </li>
+                <li>After a short wait, you should see a new file in your "output" folder.
+                    <img src="./images/output_file.png">
+                </li>
+                <li>Navigate to <a href="https://archipelago.gg/uploads">https://archipelago.gg/uploads/</a> and upload the file in your output folder.
+                    <img src="./images/host_game_upload.png">
+                </li>
+                <li>You should be redirected to Seed Info page.  Click "Create New Room".
+                    <img src="./images/create_new_room.png">
+                </li>
+                <li>You should be redirected to a new room page.  This will contain a link to download the patch file for the KH1 players, all the information they need to connect, and all the files/info for other players.
+                    <img src="./images/new_room.png">
+                </li>
+            </ol>
 
-                <h2>Installing your slot's mod</h2>
+            <h2>Installing your slot's mod</h2>
+            <ol class="guide-steps">
                 <li>KH1 players should begin by downloading their seed's mod zip.  This is either provided by their host, or they may click the "Download Patch File..." link associated with their slot in their game.</li>
                 <li>Using that downloaded patch file, install your mod in OpenKH using the same instructions as the <a href="installing_the_mod">"Installing the mod"</a> step in the <a href="setup_guide">Setup Guide</a>.</li>
+            </ol>
 
-                <h2>Connecting to the multiworld server</h2>
+            <h2>Connecting to the multiworld server</h2>
+            <ol class="guide-steps">
                 <li>Once the game has started, you can connect to the multiworld.</li>
-                <li>You can do this by opening the connection window with F4.</li>
-                <p><img src="./images/connection_window.png" border="1"></p>
+                <li>You can do this by opening the connection window with F4.
+                    <img src="./images/connection_window.png">
+                </li>
                 <li>Type in your host, slot name, and password if applicable.</li>
                 <li>Then, click connect.</li>
-                <li>If connection was successful, you should see a prompt comfirming your connection state.</li>
-                <p><img src="./images/connected2.png" border="1"></p>
+                <li>If connection was successful, you should see a prompt comfirming your connection state.
+                    <img src="./images/connected2.png">
+                </li>
+            </ol>
 
-                <h3>Having trouble getting set up?  Feel free to join the <a href="discord_links">KH1 AP Discord</a> and reach out for help.</h3>
-            </p>
+            <h3>Having trouble getting set up?  Feel free to join the <a href="discord_links">KH1 AP Discord</a> and reach out for help.</h3>
             <script>
                 fetch('header.html')
                     .then(response => response.text())

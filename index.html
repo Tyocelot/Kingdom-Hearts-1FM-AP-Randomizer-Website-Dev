@@ -5,7 +5,7 @@
     <link rel="icon" type="image/x-icon" href="./images/icon.png">
     <link rel="stylesheet" href="style.css">
 </head>
-    <body>
+    <body class="has-hero-video">
         <div class="container">
             <!-- Make dark mode -->
             <meta name    = "color-scheme" content = "light dark"/>
@@ -21,38 +21,28 @@
                     });
             </script>
 
-            <p>
-                Welcome to the Kingdom Hearts: Final Mix Archipelago Randomizer site.  Generate a seed for solo or
-                multiworld play, race the same seed as everyone else with the Daily Seed, or read through the
-                setup and locations guides below.
-            </p>
-
-            <div class="quick-links">
-                <div>
-                    <a href="generate_a_seed">Generate a Seed</a>
-                    <p>Customize your settings and generate a randomizer seed.</p>
+            <section class="hero-video">
+                <div class="hero-video__media">
+                    <video autoplay loop muted playsinline poster="video/op_loop_poster.jpg">
+                        <source src="video/op_loop_720.webm" type="video/webm">
+                        <source src="video/op_loop_720.mp4" type="video/mp4">
+                    </video>
                 </div>
-                <div>
-                    <a href="daily_seed">Daily Seed</a>
-                    <p>Log in with Discord, race today's seed, and check the leaderboard.</p>
+                <div class="hero-video__overlay"></div>
+                <div class="hero-video__content">
+                    <div class="hero-video__inner">
+                        <h2 class="hero__tagline">"This world has been connected."</h2>
+                        <p class="hero__lead">
+                            Kingdom Hearts meets endless replayability.<br>
+                            Full Multiworld randomizer support via Archipelago.
+                        </p>
+                        <div class="hero__actions">
+                            <a class="cta-button" href="generate_a_seed">Generate a Seed</a>
+                            <a class="cta-button cta-button--secondary" href="setup_guide">Setup Guide</a>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <a href="setup_guide">Setup Guide</a>
-                    <p>Install the software and mod, then get a seed running.</p>
-                </div>
-                <div>
-                    <a href="discord_links">Discord</a>
-                    <p>Join the community, get help, and find races.</p>
-                </div>
-                <div>
-                    <a id="apworld-download-link" href="#">Download kh1.apworld</a>
-                    <p>Get the latest apworld for generating a multiworld game.</p>
-                </div>
-            </div>
+            </section>
         </div>
-        <script src="config.js"></script>
-        <script>
-            document.getElementById('apworld-download-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
-        </script>
     </body>
 </html>

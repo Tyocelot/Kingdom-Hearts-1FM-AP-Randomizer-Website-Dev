@@ -20,1710 +20,267 @@
                         document.getElementById('page-subtitle').textContent = 'Generate a Seed';
                     });
             </script>
-            <style>
-                .settings_generator_table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    table-layout: fixed;
-                }
-                .settings_generator_table th, .settings_generator_table td {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    text-align: left;
-                }
-            </style>
-        <p>
-            <br>
-            Use the form below to decide your settings.  When you're finished, use the "Generate Settings File" button to download your settings file.<br>
-            If you want to play right away, or you already have a settings file you'd like to use, scroll to the end of this page, upload your settings file, and click "Generate Seed".<br><br>
-            Not sure how to use the seed this page gives you?  Check out the <a href = "setup_guide.html">Setup Guide</a>
-            <br><br>
-            <form>
-                <details>
-                    <summary>Goal</summary> <br>
-                    <table class="settings_generator_table">
-                        <tr>
-                            <th>
-                                Setting
-                            </th>
-                            <th>
-                                Input
-                            </th>
-                            <th>
-                                Selected Value
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                Final Rest Door Key
-                            </td>
-                            <td>
-                                <select name="Final Rest Door Key" id="Final Rest Door Key" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Lucky Emblems">Lucky Emblems</option>
-                                    <option value="Puppies">Puppies</option>
-                                    <option value="Postcards">Postcards</option>
-                                    <option value="Final Rest">Final Rest</option>
-                                    <option value="Sephiroth">Sephiroth</option>
-                                    <option value="Unknown">Unknown</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Final Rest Door Key">Lucky Emblems</output>
-                            </td>
-                            <td>
-                                Determines how you obtain the Final Rest Door Key, which manifests the door in Final Rest, allowing you to challenge Ansem.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                End of the World Unlock
-                            </td>
-                            <td>
-                                <select name="End of the World Unlock" id="End of the World Unlock" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Lucky Emblems">Lucky Emblems</option>
-                                    <option value="Item">Item</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="End of the World Unlock">Lucky Emblems</output>
-                            </td>
-                            <td>
-                                Determines how you unlock End of the World.<br><br>
-                                Lucky Emblems: A number of Lucky Emblems are required.<br><br>
-                                Item: An item called "End of the World" is required.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Required Lucky Emblems for End of the World
-                            </td>
-                            <td>
-                                <input type="range" id="Required Lucky Emblems for End of the World" name="Required Lucky Emblems for End of the World" min="1" max="20" value="7" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Required Lucky Emblems for End of the World">7</output>
-                            </td>
-                            <td>
-                                If End of the World Unlock is set to "Lucky Emblems", determines how many Lucky Emblems are required.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Required Lucky Emblems for Final Rest Door Key
-                            </td>
-                            <td>
-                                <input type="range" id="Required Lucky Emblems for Final Rest Door Key" name="Required Lucky Emblems for Final Rest Door Key" min="1" max="20" value="10" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Required Lucky Emblems for Final Rest Door Key">10</output>
-                            </td>
-                            <td>
-                                If Final Rest Door Key is set to "Lucky Emblems", determines how many Lucky Emblems are required.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Lucky Emblems in Item Pool
-                            </td>
-                            <td>
-                                <input type="range" id="Lucky Emblems in Item Pool" name="Lucky Emblems in Item Pool" min="1" max="20" value="13" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Lucky Emblems in Item Pool">13</output>
-                            </td>
-                            <td>
-                                Determines how many Lucky Emblems are in the item pool.<br><br>
-                                Has no effect if neither End of the World Unlock nor Final Rest Door Key are set to require Lucky Emblems.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Required Postcards
-                            </td>
-                            <td>
-                                <input type="range" id="Required Postcards" name="Required Postcards" min="1" max="10" value="8" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Required Postcards">8</output>
-                            </td>
-                            <td>
-                                If Final Rest Door Key is set to Postcards, determines how many Postcards are required.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Required Puppies
-                            </td>
-                            <td>
-                                <select name="Required Puppies" id="Required Puppies" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                    <option value="60">60</option>
-                                    <option value="70">70</option>
-                                    <option selected value="80">80</option>
-                                    <option value="90">90</option>
-                                    <option value="99">99</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Required Puppies">80</output>
-                            </td>
-                            <td>
-                                If Final Rest Door Key is set to Puppies, determines how many Puppies are required.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Destiny Islands
-                            </td>
-                            <td>
-                                <select name="Destiny Islands" id="Destiny Islands" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Destiny Islands">Yes</output>
-                            </td>
-                            <td>
-                                If on, adds a Destiny Islands item and a number of Raft Material items to the pool.<br><br>
-                                When "Destiny Islands" is found, Traverse Town will have the Seashore landing location added.<br><br>
-                                "Raft Materials" allow progress to Day 2 and Homecoming after collecting an amount specified in your settings.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Day 2 Materials
-                            </td>
-                            <td>
-                                <input type="range" id="Day 2 Materials" name="Day 2 Materials" min="1" max="20" value="4" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Day 2 Materials">4</output>
-                            </td>
-                            <td>
-                                Determines the number of Raft Materials required to progress to Day 2.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Homecoming Materials
-                            </td>
-                            <td>
-                                <input type="range" id="Homecoming Materials" name="Homecoming Materials" min="1" max="20" value="10" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Homecoming Materials">10</output>
-                            </td>
-                            <td>
-                                Determines the number of Raft Materials required to progress to Homecoming.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Materials in Pool
-                            </td>
-                            <td>
-                                <input type="range" id="Materials in Pool" name="Materials in Pool" min="1" max="20" value="13" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Materials in Pool">13</output>
-                            </td>
-                            <td>
-                                Determines the number of Raft Materials in the item pool.
-                            </td>
-                        </tr>
-                    </table>
-                </details> <br>
-                <details>
-                    <summary>Locations</summary> <br>
-                    <table class="settings_generator_table">
-                        <tr>
-                            <th>
-                                Setting
-                            </th>
-                            <th>
-                                Input
-                            </th>
-                            <th>
-                                Selected Value
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                Super Bosses
-                            </td>
-                            <td>
-                                <select name="Super Bosses" id="Super Bosses" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Super Bosses">No</output>
-                            </td>
-                            <td>
-                                Determines if important items can be behind Super Bosses.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Atlantica
-                            </td>
-                            <td>
-                                <select name="Atlantica" id="Atlantica" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Atlantica">No</output>
-                            </td>
-                            <td>
-                                Determines if important items can be found in Atlantica.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Cups
-                            </td>
-                            <td>
-                                <select name="Cups" id="Cups" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Off">Off</option>
-                                    <option value="No Hades Cup">No Hades Cup</option>
-                                    <option value="All Cups">All Cups</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Cups">Off</output>
-                            </td>
-                            <td>
-                                Determines which, if any, cups can hold important items.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                100 Acre Wood
-                            </td>
-                            <td>
-                                <select name="100 Acre Wood" id="100 Acre Wood" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="100 Acre Wood">No</output>
-                            </td>
-                            <td>
-                                Determines if important items can be found in 100 Acre Wood.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Jungle Slider
-                            </td>
-                            <td>
-                                <select name="Jungle Slider" id="Jungle Slider" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Jungle Slider">No</output>
-                            </td>
-                            <td>
-                                Determines if important items can be found in the Jungle Slider minigame.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Randomize Emblem Pieces
-                            </td>
-                            <td>
-                                <select name="Randomize Emblem Pieces" id="Randomize Emblem Pieces" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Randomize Emblem Pieces">No</output>
-                            </td>
-                            <td>
-                                Determines whether the emblem piece checks in Hollow Bastion are randomized.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Randomize Postcards
-                            </td>
-                            <td>
-                                <select name="Randomize Postcards" id="Randomize Postcards" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="All">All</option>
-                                    <option value="Chests">Chests</option>
-                                    <option value="Vanilla">Vanilla</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Randomize Postcards">All</output>
-                            </td>
-                            <td>
-                                Determines whether the postcards should be in their vanilla locations, all randomized, or only postcards that appear in chests should be randomized.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Randomize Puppies
-                            </td>
-                            <td>
-                                <select name="Randomize Puppies" id="Randomize Puppies" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Randomize Puppies">Yes</output>
-                            </td>
-                            <td>
-                                Determines if puppy locations are randomized.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Puppy Value
-                            </td>
-                            <td>
-                                <input type="range" id="Puppy Value" name="Puppy Value" min="1" max="99" value="3" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Puppy Value">3</output>
-                            </td>
-                            <td>
-                                If puppies are randomized, determines how many puppies each "Puppy" item is worth.
-                            </td>
-                        </tr>
-                    </table>
-                </details> <br>
-                <details>
-                    <summary>Levels</summary> <br>
-                    <table class="settings_generator_table">
-                        <tr>
-                            <th>
-                                Setting
-                            </th>
-                            <th>
-                                Input
-                            </th>
-                            <th>
-                                Selected Value
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                EXP Multiplier
-                            </td>
-                            <td>
-                                <input type="range" id="EXP Multiplier" name="EXP Multiplier" min="1" max="8" value="4" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="EXP Multiplier">4</output>
-                            </td>
-                            <td>
-                                Determines the amount of experience party members need to level up.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Level Checks
-                            </td>
-                            <td>
-                                <input type="range" id="Level Checks" name="Level Checks" min="0" max="99" value="99" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Level Checks">99</output>
-                            </td>
-                            <td>
-                                Determines the latest level which can yield rewards on level up.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Slot 2 Level Checks
-                            </td>
-                            <td>
-                                <input type="range" id="Slot 2 Level Checks" name="Slot 2 Level Checks" min="0" max="33" value="0" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Slot 2 Level Checks">0</output>
-                            </td>
-                            <td>
-                                Determines the amount of secondary bonuses found on levels.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Max Level for Slot 2 Level Checks
-                            </td>
-                            <td>
-                                <input type="range" id="Max Level for Slot 2 Level Checks" name="Max Level for Slot 2 Level Checks" min="2" max="100" value="50" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Max Level for Slot 2 Level Checks">50</output>
-                            </td>
-                            <td>
-                                Determines the max level which can yield a secondary bonus.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Force Stats on Levels Starting at Level
-                            </td>
-                            <td>
-                                <input type="range" id="Force Stats on Levels Starting at Level" name="Force Stats on Levels Starting at Level" min="2" max="101" value="2" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Force Stats on Levels Starting at Level">2</output>
-                            </td>
-                            <td>
-                                Determines at which level only stat increases can be found.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Strength Increases
-                            </td>
-                            <td>
-                                <input type="range" id="Strength Increases" name="Strength Increases" min="0" max="100" value="24" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Strength Increases">24</output>
-                            </td>
-                            <td>
-                                Determines how many strength increases are in the item pool.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Defense Increases
-                            </td>
-                            <td>
-                                <input type="range" id="Defense Increases" name="Defense Increases" min="0" max="100" value="24" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Defense Increases">24</output>
-                            </td>
-                            <td>
-                                Determines how many defense increases are in the item pool.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                HP Increases
-                            </td>
-                            <td>
-                                <input type="range" id="HP Increases" name="HP Increases" min="0" max="100" value="23" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="HP Increases">23</output>
-                            </td>
-                            <td>
-                                Determines how many HP increases are in the item pool.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                AP Increases
-                            </td>
-                            <td>
-                                <input type="range" id="AP Increases" name="AP Increases" min="0" max="100" value="18" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="AP Increases">18</output>
-                            </td>
-                            <td>
-                                Determines how many AP increases are in the item pool.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                MP Increases
-                            </td>
-                            <td>
-                                <input type="range" id="MP Increases" name="MP Increases" min="0" max="20" value="7" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="MP Increases">7</output>
-                            </td>
-                            <td>
-                                Determines how many MP increases are in the item pool.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Accessory Slot Increases
-                            </td>
-                            <td>
-                                <input type="range" id="Accessory Slot Increases" name="Accessory Slot Increases" min="0" max="6" value="1" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Accessory Slot Increases">1</output>
-                            </td>
-                            <td>
-                                Determines how many Accessory Slot increases are in the item pool.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Item Slot Increases
-                            </td>
-                            <td>
-                                <input type="range" id="Item Slot Increases" name="Item Slot Increases" min="0" max="5" value="3" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Item Slot Increases">3</output>
-                            </td>
-                            <td>
-                                Determines how many Item Slot increases are in the item pool.
-                            </td>
-                        </tr>
-                    </table>
-                </details> <br>
-                <details>
-                    <summary>Keyblades</summary> <br>
-                    <table class="settings_generator_table">
-                        <tr>
-                            <th>
-                                Setting
-                            </th>
-                            <th>
-                                Input
-                            </th>
-                            <th>
-                                Selected Value
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblades Unlock Chests
-                            </td>
-                            <td>
-                                <select name="Keyblades Unlock Chests" id="Keyblades Unlock Chests" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Randomize Puppies">No</output>
-                            </td>
-                            <td>
-                                If toggled on, the player is required to have a certain keyblade to open chests in certain worlds.<br><br>
-                                TT   - Lionheart<br>
-                                WL   - Lady Luck<br>
-                                OC   - Olympia<br>
-                                DJ   - Jungle King<br>
-                                AG   - Three Wishes<br>
-                                MS   - Wishing Star<br>
-                                AL   - Crabclaw<br>
-                                HT   - Pumpkinhead<br>
-                                NL   - Fairy Harp<br>
-                                HB   - Divine Rose<br>
-                                EotW - Oblivion<br>
-                                HAW  - Spellbinder<br>
-                                DI   - Oathkeeper<br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Stats
-                            </td>
-                            <td>
-                                <select name="Keyblade Stats" id="Keyblade Stats" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Vanilla">Vanilla</option>
-                                    <option selected value="Randomize">Randomize</option>
-                                    <option value="Shuffle">Shuffle</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Keyblade Stats">Randomize</output>
-                            </td>
-                            <td>
-                                Determines if keyblade stats should be shuffled, randomized, or remain vanilla.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Bad Starting Weapons
-                            </td>
-                            <td>
-                                <select name="Bad Starting Weapons" id="Bad Starting Weapons" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Bad Starting Weapons">No</output>
-                            </td>
-                            <td>
-                                Determines if the starting weapons should have their vanilla stats.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Max STR
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Max STR" name="Keyblade Max STR" min="0" max="20" value="14" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Max STR">14</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Max STR a keyblade can yield.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Min STR
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Min STR" name="Keyblade Min STR" min="0" max="20" value="3" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Min STR">3</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Min STR a keyblade can yield.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Max Crit Rate
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Max Crit Rate" name="Keyblade Max Crit Rate" min="0" max="200" value="200" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Max Crit Rate">200</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Max Crit Rate a keyblade can yield.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Min Crit Rate
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Min Crit Rate" name="Keyblade Min Crit Rate" min="0" max="200" value="0" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Min Crit Rate">0</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Min Crit Rate a keyblade can yield.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Max Crit Strength
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Max Crit Strength" name="Keyblade Max Crit Strength" min="0" max="16" value="16" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Max Crit Strength">16</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Max Crit Strength bonus a keyblade can yield.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Min Crit Strength
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Min Crit Strength" name="Keyblade Min Crit Strength" min="0" max="16" value="0" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Min Crit Strength">0</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Min Crit Strength bonus a keyblade can yield.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Max Recoil
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Max Recoil" name="Keyblade Max Recoil" min="1" max="90" value="90" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Max Recoil">90</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Max Recoil a keyblade can yield.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Min Recoil
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Min Recoil" name="Keyblade Min Recoil" min="1" max="90" value="1" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Min Recoil">1</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Min Recoil a keyblade can yield.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Max MP
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Max MP" name="Keyblade Max MP" min="-2" max="5" value="3" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Max MP">3</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Max MP a keyblade can yield.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Keyblade Min MP
-                            </td>
-                            <td>
-                                <input type="range" id="Keyblade Min MP" name="Keyblade Min MP" min="-2" max="5" value="-2" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Keyblade Min MP">-2</output>
-                            </td>
-                            <td>
-                                If Keyblade stats are randomized, determines the Min MP a keyblade can yield.
-                            </td>
-                        </tr>
-                    </table>
-                </details> <br>
-                <details>
-                    <summary>Synth</summary> <br>
-                    <table class="settings_generator_table">
-                        <tr>
-                            <th>
-                                Setting
-                            </th>
-                            <th>
-                                Input
-                            </th>
-                            <th>
-                                Selected Value
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                Mythril Price
-                            </td>
-                            <td>
-                                <input type="range" id="Mythril Price" name="Mythril Price" min="100" max="5000" value="500" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Mythril Price">500</output>
-                            </td>
-                            <td>
-                                Determines the cost of Mythril in shops.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Mythril in Pool
-                            </td>
-                            <td>
-                                <input type="range" id="Mythril in Pool" name="Mythril in Pool" min="16" max="30" value="20" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Mythril in Pool">20</output>
-                            </td>
-                            <td>
-                                Determines the number of Mythril in the item pool.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Orichalcum Price
-                            </td>
-                            <td>
-                                <input type="range" id="Orichalcum Price" name="Orichalcum Price" min="100" max="5000" value="500" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Orichalcum Price">500</output>
-                            </td>
-                            <td>
-                                Determines the cost of Orichalcum in shops.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Orichalcum in Pool
-                            </td>
-                            <td>
-                                <input type="range" id="Orichalcum in Pool" name="Orichalcum in Pool" min="17" max="30" value="20" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Orichalcum in Pool">20</output>
-                            </td>
-                            <td>
-                                Determines the number of Orichalcum in the item pool.
-                            </td>
-                        </tr>
-                    </table>
-                </details> <br>
-                <details>
-                    <summary>AP Costs</summary> <br>
-                    <table class="settings_generator_table">
-                        <tr>
-                            <th>
-                                Setting
-                            </th>
-                            <th>
-                                Input
-                            </th>
-                            <th>
-                                Selected Value
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                Randomize AP Costs
-                            </td>
-                            <td>
-                                <select name="Randomize AP Costs" id="Randomize AP Costs" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Off">Off</option>
-                                    <option selected value="Randomize">Randomize</option>
-                                    <option value="Shuffle">Shuffle</option>
-                                    <option value="Distribute">Distribute</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Randomize AP Costs">Randomize</output>
-                            </td>
-                            <td>
-                                Determines if AP costs for abilities are changed.<br><br>
-                                Off: No randomization.<br><br>
-                                Randomize: Ability AP costs will be randomized to the specified max and min.<br><br>
-                                Shuffle: Ability AP costs will be shuffled amongst themselves.<br><br>
-                                Distribute: Ability AP costs will be totalled and re-distributed randomly between the specified max and min.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Max AP Cost
-                            </td>
-                            <td>
-                                <input type="range" id="Max AP Cost" name="Max AP Cost" min="4" max="9" value="5" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Max AP Cost">5</output>
-                            </td>
-                            <td>
-                                If AP costs are set to "Randomize" or "Distribute", determines the max AP cost an ability can have.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Min AP Cost
-                            </td>
-                            <td>
-                                <input type="range" id="Min AP Cost" name="Min AP Cost" min="0" max="2" value="0" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Min AP Cost">0</output>
-                            </td>
-                            <td>
-                                If AP costs are set to "Randomize" or "Distribute", determines the min AP cost an ability can have.
-                            </td>
-                        </tr>
-                    </table>
-                </details><br>
-                <details>
-                    <summary>Spell MP Costs</summary> <br>
-                    <table class="settings_generator_table">
-                        <tr>
-                            <th>
-                                Setting
-                            </th>
-                            <th>
-                                Input
-                            </th>
-                            <th>
-                                Selected Value
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                Randomize Spell MP Costs
-                            </td>
-                            <td>
-                                <select name="Randomize Spell MP Costs" id="Randomize Spell MP Costs" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Off">Off</option>
-                                    <option value="Randomize">Randomize</option>
-                                    <option value="Shuffle">Shuffle</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Randomize Spell MP Costs">Off</output>
-                            </td>
-                            <td>
-                                Determines if spell's MP costs are changed.<br><br>
-                                Off: No randomization.<br><br>
-                                Randomize: Spell MP costs will be randomized to the specified max and min.<br><br>
-                                Shuffle: Spell MP costs will be shuffled amongst themselves.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Spell MP Cost Min
-                            </td>
-                            <td>
-                                <select name="Spell MP Cost Min" id="Spell MP Cost Min" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Half Pip">Half Pip</option>
-                                    <option value="Pip">Pip</option>
-                                    <option value="1 MP">1 MP</option>
-                                    <option value="2 MP">2 MP</option>
-                                    <option value="3 MP">3 MP</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Spell MP Cost Min">Half Pip</output>
-                            </td>
-                            <td>
-                                If Spell MP costs are set to "Randomize", determines the min MP cost a spell can have.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Spell MP Cost Max
-                            </td>
-                            <td>
-                                <select name="Spell MP Cost Max" id="Spell MP Cost Max" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Half Pip">Half Pip</option>
-                                    <option value="Pip">Pip</option>
-                                    <option value="1 MP">1 MP</option>
-                                    <option value="2 MP">2 MP</option>
-                                    <option selected value="3 MP">3 MP</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Spell MP Cost Max">3 MP</output>
-                            </td>
-                            <td>
-                                If Spell MP costs are set to "Randomize", determines the max MP cost a spell can have.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Individual Spell Level Costs
-                            </td>
-                            <td>
-                                <select name="Individual Spell Level Costs" id="Individual Spell Level Costs" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Individual Spell Level Costs">Yes</output>
-                            </td>
-                            <td>
-                                If randomizing or shuffling spell MP costs, each indiviudal level of a spell (for example Fire vs Fira vs Firaga) can have different MP costs.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Scaling Spell Potency
-                            </td>
-                            <td>
-                                <select name="Scaling Spell Potency" id="Scaling Spell Potency" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Scaling Spell Potency">Yes</output>
-                            </td>
-                            <td>
-                                If randomizing or shuffling spell MP costs, each spell will have its effectiveness scaled relative to its new cost.
-                            </td>
-                        </tr>
-                    </table>
-                </details><br>
-                <details>
-                    <summary>Accessories</summary> <br>
-                    <table class="settings_generator_table">
-                        <tr>
-                            <th>
-                                Setting
-                            </th>
-                            <th>
-                                Input
-                            </th>
-                            <th>
-                                Selected Value
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                Accessory Augments
-                            </td>
-                            <td>
-                                <select name="Accessory Augments" id="Accessory Augments" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Accessory Augments">No</output>
-                            </td>
-                            <td>
-                                    Accessories are assigned special effects in addition to their normal effects.<br><br>
-                                    These can be either positive or negative.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Augment Abilities from Pool
-                            </td>
-                            <td>
-                                <select name="Augment Abilities from Pool" id="Augment Abilities from Pool" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Augment Abilities from Pool">Yes</output>
-                            </td>
-                            <td>
-                                    If accessory augments is on, if an accessory's augment is assigned an ability, that ability can only be found on that accessory.
-                            </td>
-                        </tr>
-                    </table>
-                </details><br>
-                <details>
-                    <summary>Misc</summary> <br>
-                    <table class="settings_generator_table">
-                        <tr>
-                            <th>
-                                Setting
-                            </th>
-                            <th>
-                                Input
-                            </th>
-                            <th>
-                                Selected Value
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                Slot Name
-                            </td>
-                            <td>
-                                <input type="text" id="Slot Name" name="Slot Name" value="Player{number}" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Slot Name">Player{number}</output>
-                            </td>
-                            <td>
-                                Defines what the slot name should be for hosting the game using Archipelago.<br><br>
-                                You can ignore this if you plan to play without using the server/client.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Starting Worlds
-                            </td>
-                            <td>
-                                <input type="range" id="Starting Worlds" name="Starting Worlds" min="0" max="10" value="4" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                            </td>
-                            <td>
-                                <output for="Starting Worlds">4</output>
-                            </td>
-                            <td>
-                                Determines the amount of worlds the player starts with in addition to Traverse Town.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Starting Tools
-                            </td>
-                            <td>
-                                <select name="Starting Tools" id="Starting Tools" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Starting Tools">Yes</output>
-                            </td>
-                            <td>
-                                Determines if the player should start with Scan and Dodge Roll.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Stacking World Items
-                            </td>
-                            <td>
-                                <select name="Stacking World Items" id="Stacking World Items" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Stacking World Items">Yes</output>
-                            </td>
-                            <td>
-                                Determines if world key items should be replaced with additional world items in the pool.<br><br>
-                                Collecting multiple of a world item grants you that world's key item.<br><br>
-                                If on, Halloween Town Key Item Bundle is forced on.<br><br>
-                                WL: Footprints<br>
-                                OC: Entry Pass<br>
-                                DJ: Slides<br>
-                                AL: Crystal Trident<br>
-                                HT: Forget-Me-Not and Jack-In-The-Box<br>
-                                HB: Theon Vol. 6
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Halloween Town Key Item Bundle
-                            </td>
-                            <td>
-                                <select name="Halloween Town Key Item Bundle" id="Halloween Town Key Item Bundle" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Halloween Town Key Item Bundle">Yes</output>
-                            </td>
-                            <td>
-                                Determines if collecting Forget-Me-Not automatically grants the player Jack-In-The-Box.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Interact in Battle
-                            </td>
-                            <td>
-                                <select name="Interact in Battle" id="Interact in Battle" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Interact in Battle">Yes</output>
-                            </td>
-                            <td>
-                                Determines if the player can interact with objects they normally couldn't in battle.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Logic Difficulty
-                            </td>
-                            <td>
-                                <select name="Logic Difficulty" id="Logic Difficulty" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Beginner">Beginner</option>
-                                    <option selected value="Normal">Normal</option>
-                                    <option value="Proud">Proud</option>
-                                    <option value="Minimal">Minimal</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Logic Difficulty">Normal</output>
-                            </td>
-                            <td>
-                                Determines what the randomizer logic may expect you to do to reach certain locations.<br><br>
-                                Beginner: Logic only expects what would be the natural solution in vanilla gameplay or similar, as well as a guarantee of tools for boss fights.<br><br>
-                                Normal: Logic expects some clever use of abilities, exploration of options, and competent combat ability; generally does not require advanced knowledge.<br><br>
-                                Proud: Logic expects advanced knowledge of tricks and obscure interactions, such as using Combo Master, Dumbo, and other unusual methods to reach locations.<br><br>
-                                Minimal: Logic expects the bare minimum to get to locations; may require extensive grinding, beating fights with no tools, and performing very difficult or tedious tricks.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Extra Shared Abilities
-                            </td>
-                            <td>
-                                <select name="Extra Shared Abilities" id="Extra Shared Abilities" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Extra Shared Abilities">Yes</output>
-                            </td>
-                            <td>
-                                Determines if the item pool contains additional shared abilities, which can stack.<br><br>
-                                For example, equipping more High Jumps make you jump higher, more Super Glides makes you glide faster.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                EXP Zero in Pool
-                            </td>
-                            <td>
-                                <select name="EXP Zero in Pool" id="EXP Zero in Pool" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="EXP Zero in Pool">No</output>
-                            </td>
-                            <td>
-                                Determines if EXP Zero is added to the item pool.<br><br>
-                                This is redundant if you plan on playing on Proud mode.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Randomize Party Member Starting Accessories
-                            </td>
-                            <td>
-                                <select name="Randomize Party Member Starting Accessories" id="Randomize Party Member Starting Accessories" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Randomize Party Member Starting Accessories">Yes</output>
-                            </td>
-                            <td>
-                                Determines if the 10 starting accessories (normally given to Aladdin, Ariel, Jack, Peter Pan, and Beast) are randomized and distributed amongst all party members randomly.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Death Link
-                            </td>
-                            <td>
-                                <select name="Death Link" id="Death Link" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Off">Off</option>
-                                    <option value="Toggle">Toggle</option>
-                                    <option value="On">On</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Death Link">Off</output>
-                            </td>
-                            <td>
-                                If another player in the multiworld is KO'ed, so is Sora. The opposite is also true.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Donald Death Link
-                            </td>
-                            <td>
-                                <select name="Donald Death Link" id="Donald Death Link" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Donald Death Link">No</output>
-                            </td>
-                            <td>
-                                If Donald is KO'ed, so is Sora.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Goofy Death Link
-                            </td>
-                            <td>
-                                <select name="Goofy Death Link" id="Goofy Death Link" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Goofy Death Link">No</output>
-                            </td>
-                            <td>
-                                If Goofy is KO'ed, so is Sora.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Remote Items
-                            </td>
-                            <td>
-                                <select name="Remote Items" id="Remote Items" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Off">Off</option>
-                                    <option value="Allow">Allow</option>
-                                    <option value="Full">Full</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Remote Items">Off</output>
-                            </td>
-                            <td>
-                                Determines if KH1 items can be placed in KH1 locations in such a way that they are forced to be remote items.<br><br>
-                                Off: KH1 items placed in KH1 will all be placed locally and do not require client/server connection to obtain.<br><br>
-                                Allow: KH1 items placed in KH1 can be placed in locations that require client/server connection, but are otherwise placed locally.<br><br>
-                                Full: All locations in KH1 are handled by the client/server and nothing is placed locally.<br><br>
-                                If you are unsure what to choose - leave this as "Off".
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Shorten Go Mode
-                            </td>
-                            <td>
-                                <select name="Shorten Go Mode" id="Shorten Go Mode" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Shorten Go Mode">Yes</output>
-                            </td>
-                            <td>
-                                Determines if the player should be warped to the credits after defeating Ansem 1 > Darkside > Ansem 2 in Homecoming.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                One HP
-                            </td>
-                            <td>
-                                <select name="One HP" id="One HP" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="One HP">No</output>
-                            </td>
-                            <td>
-                                Forces Sora's max HP to 1 and removes the low health warning sound.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                4by3
-                            </td>
-                            <td>
-                                <select name="4by3" id="4by3" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="4by3">No</output>
-                            </td>
-                            <td>
-                                Changes the aspect ratio to 4 by 3.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Beep Hack
-                            </td>
-                            <td>
-                                <select name="Beep Hack" id="Beep Hack" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Beep Hack">No</output>
-                            </td>
-                            <td>
-                                Removes the low health warning sound.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Consistent Finishers
-                            </td>
-                            <td>
-                                <select name="Consistent Finishers" id="Consistent Finishers" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Consistent Finishers">No</output>
-                            </td>
-                            <td>
-                                Makes 30% chance finishers occur 100% of the time.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Early Skip
-                            </td>
-                            <td>
-                                <select name="Early Skip" id="Early Skip" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Early Skip">Yes</output>
-                            </td>
-                            <td>
-                                Allows skipping cutscenes immediately that normally are unskippable in the first few seconds.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Fast Camera
-                            </td>
-                            <td>
-                                <select name="Fast Camera" id="Fast Camera" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Fast Camera">No</output>
-                            </td>
-                            <td>
-                                Speeds up camera movement and camera centering.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Faster Animations
-                            </td>
-                            <td>
-                                <select name="Faster Animations" id="Faster Animations" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Faster Animations">Yes</output>
-                            </td>
-                            <td>
-                                Speeds up animations during which you can't play.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Unlock 0 Volume
-                            </td>
-                            <td>
-                                <select name="Unlock 0 Volume" id="Unlock 0 Volume" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Unlock 0 Volume">No</output>
-                            </td>
-                            <td>
-                                Volume 1 mutes the audio channel.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Unskippable
-                            </td>
-                            <td>
-                                <select name="Unskippable" id="Unskippable" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Unskippable">Yes</output>
-                            </td>
-                            <td>
-                                Makes normally unskippable cutscenes skippable
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Auto Save
-                            </td>
-                            <td>
-                                <select name="Auto Save" id="Auto Save" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option selected value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Auto Save">Yes</output>
-                            </td>
-                            <td>
-                                If on, enables auto saving.<br><br>
-                                L1 + L2 + R1 + R2 + DPad Up: Load most recent auto save.<br><br>
-                                L1 + L2 + R1 + R2 + DPad Right: Load second most recent auto save.<br><br>
-                                L1 + L2 + R1 + R2 + DPad Down: Load third most recent auto save.<br><br>
-                                L1 + L2 + R1 + R2 + DPad Left: Load fourth most recent auto save.<br><br>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Warp Anywhere
-                            </td>
-                            <td>
-                                <select name="Warp Anywhere" id="Warp Anywhere" oninput="this.parentElement.nextElementSibling.querySelector('output').value = this.value" required>
-                                    <option value="Yes">Yes</option>
-                                    <option selected value="No">No</option>
-                                </select>
-                            </td>
-                            <td>
-                                <output for="Warp Anywhere">No</output>
-                            </td>
-                            <td>
-                                Enables the player to warp at any time, even when not at a save point.<br><br>
-                                L1 + L2 + R2 + Select: Opens the save/warp menu.
-                            </td>
-                        </tr>
-                    </table>
-                </details><br>
-                <button onclick="generate_settings_file()">Generate Settings File</button><br><br>
-                <input type="file" id="yaml-upload" accept=".yaml,.yml">
-                <button id="generate-button" disabled>Generate Seed</button>
-                <div id="generation-result"></div>
+            <div class="page-intro">
+                <p>Use the form below to decide your settings, then head to the <strong>Finish</strong> tab to create your seed.</p>
+                <p>Your choices are saved automatically as you go, so you won't lose them if you leave and come back later. The Finish tab also lets you save your settings to a file, or load a previously saved settings file to restore them here.</p>
+                <p>Not sure how to use the seed this page gives you? Check out the <a href="setup_guide">Setup Guide</a>.</p>
+            </div>
+            <form id="settings-form">
+                <div class="settings-tabs" id="settings-tabs" role="tablist" aria-label="Settings categories"></div>
+                <div id="settings-panels"></div>
             </form>
-            
+
+            <script src="config.js"></script>
             <script>
-                function generate_settings_file()
-                {
+                let settingsData = null;
+                const STORAGE_KEY = 'kh1fm-generate-a-seed-settings';
+                const flaskUrl = `${FLASK_BASE_URL}/generate`;
+
+                function setResultState(el, html, type = 'info') {
+                    el.innerHTML = html;
+                    el.classList.remove('success', 'error');
+                    if (type === 'success' || type === 'error') {
+                        el.classList.add(type);
+                    }
+                }
+
+                function escapeHtml(value) {
+                    return String(value).replace(/[&<>"']/g, (c) => ({
+                        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+                    }[c]));
+                }
+
+                function buildOptionEl(opt, selectedValue) {
+                    const optionEl = document.createElement('option');
+                    optionEl.value = opt.value;
+                    optionEl.textContent = opt.text;
+                    if (opt.value === selectedValue) {
+                        optionEl.selected = true;
+                    }
+                    return optionEl;
+                }
+
+                function persistFormState() {
+                    if (!settingsData) {
+                        return;
+                    }
+                    const state = {};
+                    settingsData.tabs.flatMap((tab) => tab.settings).forEach((setting) => {
+                        const el = document.getElementById(setting.id);
+                        if (el) {
+                            state[setting.id] = el.value;
+                        }
+                    });
+                    try {
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+                    } catch (e) {
+                        // localStorage unavailable (private browsing, quota, etc.) - skip persistence
+                    }
+                }
+
+                function restoreFormState() {
+                    let saved = null;
+                    try {
+                        saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+                    } catch (e) {
+                        return;
+                    }
+                    if (!saved) {
+                        return;
+                    }
+                    for (const [id, value] of Object.entries(saved)) {
+                        const el = document.getElementById(id);
+                        if (!el) {
+                            continue;
+                        }
+                        el.value = value;
+                        if (el.nextElementSibling && el.nextElementSibling.tagName === 'OUTPUT') {
+                            el.nextElementSibling.value = el.value;
+                        }
+                    }
+                }
+
+                function buildControl(setting) {
+                    let control;
+                    if (setting.type === 'select') {
+                        control = document.createElement('select');
+                        setting.options.forEach((opt) => control.appendChild(buildOptionEl(opt, setting.default)));
+                    } else if (setting.type === 'range') {
+                        control = document.createElement('input');
+                        control.type = 'range';
+                        control.min = setting.min;
+                        control.max = setting.max;
+                        control.value = setting.default;
+                    } else if (setting.type === 'text') {
+                        control = document.createElement('input');
+                        control.type = 'text';
+                        control.value = setting.default;
+                    } else {
+                        throw new Error('Unknown setting type: ' + setting.type);
+                    }
+                    control.id = setting.id;
+                    control.name = setting.id;
+                    control.required = true;
+                    control.addEventListener('input', () => {
+                        control.nextElementSibling.value = control.value;
+                        persistFormState();
+                    });
+                    return control;
+                }
+
+                function buildSettingRow(setting) {
+                    const row = document.createElement('div');
+                    row.className = 'setting-row';
+
+                    const label = document.createElement('span');
+                    label.className = 'setting-row__label';
+                    label.append(setting.label + ' ');
+
+                    const tip = document.createElement('span');
+                    tip.className = 'info-tip';
+                    tip.tabIndex = 0;
+                    const tipIcon = document.createElement('span');
+                    tipIcon.className = 'info-tip__icon';
+                    tipIcon.setAttribute('aria-hidden', 'true');
+                    tipIcon.textContent = 'i';
+                    const tipContent = document.createElement('span');
+                    tipContent.className = 'info-tip__content';
+                    tipContent.innerHTML = setting.description;
+                    tip.append(tipIcon, tipContent);
+                    label.appendChild(tip);
+
+                    const controlWrap = document.createElement('div');
+                    controlWrap.className = 'setting-row__control';
+                    const control = buildControl(setting);
+                    controlWrap.appendChild(control);
+
+                    const output = document.createElement('output');
+                    output.className = setting.type === 'range' ? 'output-pill' : 'output-pill output-pill--hidden';
+                    output.setAttribute('for', setting.id);
+                    output.value = setting.default;
+                    controlWrap.appendChild(output);
+
+                    row.append(label, controlWrap);
+                    return row;
+                }
+
+                function activateTab(slug) {
+                    document.querySelectorAll('.settings-tab').forEach((btn) => {
+                        const isTarget = btn.id === 'tab-btn-' + slug;
+                        btn.classList.toggle('active', isTarget);
+                        btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+                        btn.tabIndex = isTarget ? 0 : -1;
+                    });
+                    document.querySelectorAll('.settings-panel').forEach((panel) => {
+                        panel.hidden = panel.id !== 'tab-panel-' + slug;
+                    });
+                }
+
+                function renderTabs(tabs) {
+                    const tabsContainer = document.getElementById('settings-tabs');
+                    const panelsContainer = document.getElementById('settings-panels');
+
+                    tabs.forEach((tab, index) => {
+                        const isFirst = index === 0;
+
+                        const button = document.createElement('button');
+                        button.type = 'button';
+                        button.className = isFirst ? 'settings-tab active' : 'settings-tab';
+                        button.setAttribute('role', 'tab');
+                        button.setAttribute('aria-selected', isFirst ? 'true' : 'false');
+                        button.setAttribute('aria-controls', 'tab-panel-' + tab.slug);
+                        button.id = 'tab-btn-' + tab.slug;
+                        button.tabIndex = isFirst ? 0 : -1;
+                        button.textContent = tab.name;
+                        button.addEventListener('click', () => activateTab(tab.slug));
+                        tabsContainer.appendChild(button);
+
+                        const panel = document.createElement('div');
+                        panel.className = 'settings-panel';
+                        panel.id = 'tab-panel-' + tab.slug;
+                        panel.setAttribute('role', 'tabpanel');
+                        panel.setAttribute('aria-labelledby', 'tab-btn-' + tab.slug);
+                        if (!isFirst) {
+                            panel.hidden = true;
+                        }
+
+                        const grid = document.createElement('div');
+                        grid.className = 'settings-grid';
+                        tab.settings.forEach((setting) => grid.appendChild(buildSettingRow(setting)));
+                        panel.appendChild(grid);
+
+                        panelsContainer.appendChild(panel);
+                    });
+                }
+
+                function applySettingTransform(type, value) {
+                    switch (type) {
+                        case 'raw':
+                            return value.toString();
+                        case 'bool':
+                            return value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false");
+                        case 'enum':
+                            return value.toLowerCase().replace(/ /g, "_");
+                        case 'cups':
+                            return value.toLowerCase().replace(/ /g, "_").replace("all_cups", "hades_cup").replace("no_hades_cup", "cups");
+                        case 'multiply16':
+                            return (value * 16).toString();
+                        default:
+                            throw new Error('Unknown setting transform: ' + type);
+                    }
+                }
+
+                function reverseSettingTransform(setting, rawValue) {
+                    switch (setting.transform) {
+                        case 'raw':
+                            return rawValue;
+                        case 'multiply16':
+                            return (parseInt(rawValue, 10) / 16).toString();
+                        case 'bool':
+                        case 'enum':
+                        case 'cups': {
+                            const match = setting.options.find(
+                                (opt) => applySettingTransform(setting.transform, opt.value) === rawValue
+                            );
+                            return match ? match.value : null;
+                        }
+                        default:
+                            return null;
+                    }
+                }
+
+                function buildYamlString() {
+                    if (!settingsData) {
+                        return '';
+                    }
+
                     //Create data object
                     let data = "";
-                    
+
+                    const allSettings = settingsData.tabs.flatMap((tab) => tab.settings);
+                    const slotNameSetting = allSettings.find((setting) => setting.transform === 'slotName');
+
                     //Append name
-                    data = data + "name: " + document.getElementById("Slot Name").value + "\r\n";
-                    
+                    data = data + "name: " + document.getElementById(slotNameSetting.id).value + "\r\n";
+
                     //Append game
                     data = data + "game: Kingdom Hearts" + "\r\n";
                     data = data + "Kingdom Hearts:" + "\r\n";
-                    
+
                     //Append settings
-                    data = data + "  final_rest_door_key: " + document.getElementById("Final Rest Door Key").value.toLowerCase().replace(/ /g, "_") + "\r\n";
-                    data = data + "  end_of_the_world_unlock: " + document.getElementById("End of the World Unlock").value.toLowerCase().replace(/ /g, "_") + "\r\n";
-                    data = data + "  required_lucky_emblems_door: " + document.getElementById("Required Lucky Emblems for Final Rest Door Key").value.toString() + "\r\n";
-                    data = data + "  required_lucky_emblems_eotw: " + document.getElementById("Required Lucky Emblems for End of the World").value.toString() + "\r\n";
-                    data = data + "  lucky_emblems_in_pool: " + document.getElementById("Lucky Emblems in Item Pool").value.toString() + "\r\n";
-                    data = data + "  required_postcards: " + document.getElementById("Required Postcards").value.toString() + "\r\n";
-                    data = data + "  required_puppies: " + document.getElementById("Required Puppies").value.toString() + "\r\n";
-                    data = data + "  destiny_islands: " + document.getElementById("Destiny Islands").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  day_2_materials: " + document.getElementById("Day 2 Materials").value.toString() + "\r\n";
-                    data = data + "  homecoming_materials: " + document.getElementById("Homecoming Materials").value.toString() + "\r\n";
-                    data = data + "  materials_in_pool: " + document.getElementById("Materials in Pool").value.toString() + "\r\n";
-                    data = data + "  super_bosses: " + document.getElementById("Super Bosses").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  atlantica: " + document.getElementById("Atlantica").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  cups: " + document.getElementById("Cups").value.toLowerCase().replace(/ /g, "_").replace("all_cups","hades_cup").replace("no_hades_cup", "cups") + "\r\n";
-                    data = data + "  hundred_acre_wood: " + document.getElementById("100 Acre Wood").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  jungle_slider: " + document.getElementById("Jungle Slider").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  randomize_emblem_pieces: " + document.getElementById("Randomize Emblem Pieces").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  randomize_postcards: " + document.getElementById("Randomize Postcards").value.toLowerCase().replace(/ /g, "_") + "\r\n";
-                    data = data + "  exp_multiplier: " + (document.getElementById("EXP Multiplier").value * 16).toString() + "\r\n";
-                    data = data + "  level_checks: " + document.getElementById("Level Checks").value.toString() + "\r\n";
-                    data = data + "  slot_2_level_checks: " + document.getElementById("Slot 2 Level Checks").value.toString() + "\r\n";
-                    data = data + "  max_level_for_slot_2_level_checks: " + document.getElementById("Max Level for Slot 2 Level Checks").value.toString() + "\r\n";
-                    data = data + "  force_stats_on_levels: " + document.getElementById("Force Stats on Levels Starting at Level").value.toString() + "\r\n";
-                    data = data + "  strength_increase: " + document.getElementById("Strength Increases").value.toString() + "\r\n";
-                    data = data + "  defense_increase: " + document.getElementById("Defense Increases").value.toString() + "\r\n";
-                    data = data + "  hp_increase: " + document.getElementById("HP Increases").value.toString() + "\r\n";
-                    data = data + "  ap_increase: " + document.getElementById("AP Increases").value.toString() + "\r\n";
-                    data = data + "  mp_increase: " + document.getElementById("MP Increases").value.toString() + "\r\n";
-                    data = data + "  accessory_slot_increase: " + document.getElementById("Accessory Slot Increases").value.toString() + "\r\n";
-                    data = data + "  item_slot_increase: " + document.getElementById("Item Slot Increases").value.toString() + "\r\n";
-                    data = data + "  keyblades_unlock_chests: " + document.getElementById("Keyblades Unlock Chests").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  keyblade_stats: " + document.getElementById("Keyblade Stats").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  bad_starting_weapons: " + document.getElementById("Bad Starting Weapons").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  keyblade_max_str: " + document.getElementById("Keyblade Max STR").value.toString() + "\r\n";
-                    data = data + "  keyblade_min_str: " + document.getElementById("Keyblade Min STR").value.toString() + "\r\n";
-                    data = data + "  keyblade_max_crit_rate: " + document.getElementById("Keyblade Max Crit Rate").value.toString() + "\r\n";
-                    data = data + "  keyblade_min_crit_rate: " + document.getElementById("Keyblade Min Crit Rate").value.toString() + "\r\n";
-                    data = data + "  keyblade_max_crit_str: " + document.getElementById("Keyblade Max Crit Strength").value.toString() + "\r\n";
-                    data = data + "  keyblade_min_crit_str: " + document.getElementById("Keyblade Min Crit Strength").value.toString() + "\r\n";
-                    data = data + "  keyblade_max_recoil: " + document.getElementById("Keyblade Max Recoil").value.toString() + "\r\n";
-                    data = data + "  keyblade_min_recoil: " + document.getElementById("Keyblade Min Recoil").value.toString() + "\r\n";
-                    data = data + "  keyblade_max_mp: " + document.getElementById("Keyblade Max MP").value.toString() + "\r\n";
-                    data = data + "  keyblade_min_mp: " + document.getElementById("Keyblade Min MP").value.toString() + "\r\n";
-                    data = data + "  starting_worlds: " + document.getElementById("Starting Worlds").value.toString() + "\r\n";
-                    data = data + "  starting_tools: " + document.getElementById("Starting Tools").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  randomize_puppies: " + document.getElementById("Randomize Puppies").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  puppy_value: " + document.getElementById("Puppy Value").value.toString() + "\r\n";
-                    data = data + "  interact_in_battle: " + document.getElementById("Interact in Battle").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  logic_difficulty: " + document.getElementById("Logic Difficulty").value.toLowerCase().replace(/ /g, "_") + "\r\n";
-                    data = data + "  extra_shared_abilities: " + document.getElementById("Extra Shared Abilities").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  exp_zero_in_pool: " + document.getElementById("EXP Zero in Pool").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  randomize_party_member_starting_accessories: " + document.getElementById("Randomize Party Member Starting Accessories").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  death_link: " + document.getElementById("Death Link").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  donald_death_link: " + document.getElementById("Donald Death Link").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  goofy_death_link: " + document.getElementById("Goofy Death Link").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  remote_items: " + document.getElementById("Remote Items").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  shorten_go_mode: " + document.getElementById("Shorten Go Mode").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  mythril_in_pool: " + document.getElementById("Mythril in Pool").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  mythril_price: " + document.getElementById("Mythril Price").value.toString() + "\r\n";
-                    data = data + "  orichalcum_in_pool: " + document.getElementById("Orichalcum in Pool").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  orichalcum_price: " + document.getElementById("Orichalcum Price").value.toString() + "\r\n";
-                    data = data + "  one_hp: " + document.getElementById("One HP").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  four_by_three: " + document.getElementById("4by3").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  beep_hack: " + document.getElementById("Beep Hack").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  consistent_finishers: " + document.getElementById("Consistent Finishers").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  early_skip: " + document.getElementById("Early Skip").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  fast_camera: " + document.getElementById("Fast Camera").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  faster_animations: " + document.getElementById("Faster Animations").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  unlock_0_volume: " + document.getElementById("Unlock 0 Volume").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  unskippable: " + document.getElementById("Unskippable").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  auto_save: " + document.getElementById("Auto Save").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  warp_anywhere: " + document.getElementById("Warp Anywhere").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  randomize_ap_costs: " + document.getElementById("Randomize AP Costs").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  max_ap_cost: " + document.getElementById("Max AP Cost").value.toString() + "\r\n";
-                    data = data + "  min_ap_cost: " + document.getElementById("Min AP Cost").value.toString() + "\r\n";
-                    data = data + "  stacking_world_items: " + document.getElementById("Stacking World Items").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  halloween_town_key_item_bundle: " + document.getElementById("Halloween Town Key Item Bundle").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  randomize_spell_mp_costs: " + document.getElementById("Randomize Spell MP Costs").value.toLowerCase().replace(/ /g, "_") + "\r\n";
-                    data = data + "  spell_mp_cost_min: " + document.getElementById("Spell MP Cost Min").value.toLowerCase().replace(/ /g, "_") + "\r\n";
-                    data = data + "  spell_mp_cost_max: " + document.getElementById("Spell MP Cost Max").value.toLowerCase().replace(/ /g, "_") + "\r\n";
-                    data = data + "  individual_spell_level_costs: " + document.getElementById("Individual Spell Level Costs").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  scaling_spell_potency: " + document.getElementById("Scaling Spell Potency").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  accessory_augments: " + document.getElementById("Accessory Augments").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    data = data + "  augment_abilities_from_pool: " + document.getElementById("Augment Abilities from Pool").value.toLowerCase().replace(/ /g, "_").replace("yes", "true").replace("no", "false") + "\r\n";
-                    
+                    for (const setting of allSettings) {
+                        if (setting.transform === 'slotName') {
+                            continue;
+                        }
+                        const rawValue = document.getElementById(setting.id).value;
+                        data = data + "  " + setting.yamlKey + ": " + applySettingTransform(setting.transform, rawValue) + "\r\n";
+                    }
+
+                    return data;
+                }
+
+                function downloadSettingsFile() {
+                    const data = buildYamlString();
                     const filename = "settings.yaml";
                     const type = "text/plain";
                     const file = new Blob([data], { type: type });
@@ -1733,29 +290,78 @@
                     a.download = filename;
                     document.body.appendChild(a);
                     a.click();
-                    
+
                     // Clean up the URL object after the download
                     setTimeout(() => {
                         URL.revokeObjectURL(url);
                         document.body.removeChild(a);
                     }, 0);
                 }
-            </script>
-            <script src="config.js"></script>
-            <script>
-                const flaskUrl = `${FLASK_BASE_URL}/generate`;
 
-                const fileInput = document.getElementById('yaml-upload');
-                const generateButton = document.getElementById('generate-button');
-                const resultDiv = document.getElementById('generation-result');
-
-                fileInput.addEventListener('change', () => {
-                    if (fileInput.files.length > 0) {
-                        generateButton.disabled = false;
-                    } else {
-                        generateButton.disabled = true;
+                function parseSettingsYaml(text) {
+                    const lines = text.split(/\r?\n/);
+                    const result = { name: null, values: {} };
+                    for (const line of lines) {
+                        if (!line.trim()) {
+                            continue;
+                        }
+                        if (line.startsWith('  ')) {
+                            const idx = line.indexOf(':');
+                            if (idx === -1) {
+                                continue;
+                            }
+                            const key = line.slice(2, idx).trim();
+                            const value = line.slice(idx + 1).trim();
+                            result.values[key] = value;
+                        } else if (line.startsWith('name:')) {
+                            result.name = line.slice('name:'.length).trim();
+                        }
+                        // "game:" and "Kingdom Hearts:" lines are constant/structural - ignored
                     }
-                });
+                    return result;
+                }
+
+                function loadSettingsFromYamlText(text) {
+                    if (!settingsData) {
+                        return { applied: 0, unrecognized: [] };
+                    }
+
+                    const parsed = parseSettingsYaml(text);
+                    const allSettings = settingsData.tabs.flatMap((tab) => tab.settings);
+                    const byYamlKey = new Map(allSettings.filter((s) => s.yamlKey).map((s) => [s.yamlKey, s]));
+
+                    let applied = 0;
+                    const unrecognized = [];
+
+                    const slotNameSetting = allSettings.find((setting) => setting.transform === 'slotName');
+                    if (slotNameSetting && parsed.name !== null) {
+                        const el = document.getElementById(slotNameSetting.id);
+                        el.value = parsed.name;
+                        applied++;
+                    }
+
+                    for (const [yamlKey, rawValue] of Object.entries(parsed.values)) {
+                        const setting = byYamlKey.get(yamlKey);
+                        if (!setting) {
+                            unrecognized.push(yamlKey);
+                            continue;
+                        }
+                        const formValue = reverseSettingTransform(setting, rawValue);
+                        if (formValue === null) {
+                            unrecognized.push(yamlKey);
+                            continue;
+                        }
+                        const el = document.getElementById(setting.id);
+                        el.value = formValue;
+                        if (el.nextElementSibling && el.nextElementSibling.tagName === 'OUTPUT') {
+                            el.nextElementSibling.value = el.value;
+                        }
+                        applied++;
+                    }
+
+                    persistFormState();
+                    return { applied, unrecognized };
+                }
 
                 async function generateKH1APR(file, discordId, flaskApGenerateUrl, onProgress, onError, onSuccess, seedTab) {
                     if (!file) {
@@ -1785,7 +391,7 @@
                             if (seedTab) seedTab.close();
                             return;
                         }
-                        
+
                         for (const [key, value] of response.headers.entries()) {
                             console.log(`Header Key: ${key}\nHeader Value: ${value}`);
                         }
@@ -1825,11 +431,78 @@
                     }
                 }
 
-                generateButton.addEventListener('click', async () => {
-                    const file = fileInput.files[0];
-                    if (file) {
-                        resultDiv.innerHTML = ''; // Clear previous results
+                function buildActionsTab() {
+                    const tabsContainer = document.getElementById('settings-tabs');
+                    const panelsContainer = document.getElementById('settings-panels');
+
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'settings-tab settings-tab--cta';
+                    button.setAttribute('role', 'tab');
+                    button.setAttribute('aria-selected', 'false');
+                    button.setAttribute('aria-controls', 'tab-panel-generate');
+                    button.id = 'tab-btn-generate';
+                    button.tabIndex = -1;
+                    button.textContent = 'Finish';
+                    button.addEventListener('click', () => activateTab('generate'));
+                    tabsContainer.appendChild(button);
+
+                    const panel = document.createElement('div');
+                    panel.className = 'settings-panel';
+                    panel.id = 'tab-panel-generate';
+                    panel.setAttribute('role', 'tabpanel');
+                    panel.setAttribute('aria-labelledby', 'tab-btn-generate');
+                    panel.hidden = true;
+                    panel.innerHTML = `
+                        <div class="card seed-actions">
+                            <h3>Save / Load Settings</h3>
+                            <p class="seed-actions__hint">Save your current settings to a file you can keep or share, or load a previously saved settings file to restore them here.</p>
+                            <div class="action-row">
+                                <button type="button" class="secondary" id="save-settings-button">Save Settings</button>
+                                <input type="file" id="load-yaml-input" accept=".yaml,.yml">
+                            </div>
+                            <div id="load-result" class="result-box"></div>
+                        </div>
+                        <div class="card seed-actions">
+                            <h3>Generate Seed</h3>
+                            <p class="seed-actions__hint">Generates a seed using the settings currently selected on this page.</p>
+                            <button type="button" id="generate-button">Generate Seed</button>
+                            <div id="generation-result" class="result-box"></div>
+                        </div>
+                    `;
+                    panelsContainer.appendChild(panel);
+
+                    document.getElementById('save-settings-button').addEventListener('click', downloadSettingsFile);
+
+                    document.getElementById('load-yaml-input').addEventListener('change', async () => {
+                        const input = document.getElementById('load-yaml-input');
+                        const loadResult = document.getElementById('load-result');
+                        const file = input.files[0];
+                        if (!file) {
+                            return;
+                        }
+                        try {
+                            const text = await file.text();
+                            const { applied, unrecognized } = loadSettingsFromYamlText(text);
+                            let message = `Loaded ${applied} setting${applied === 1 ? '' : 's'} from ${escapeHtml(file.name)}.`;
+                            if (unrecognized.length > 0) {
+                                message += ` Skipped ${unrecognized.length} unrecognized key${unrecognized.length === 1 ? '' : 's'}.`;
+                            }
+                            setResultState(loadResult, message, 'success');
+                        } catch (e) {
+                            setResultState(loadResult, `Error reading file: ${escapeHtml(e.message)}`, 'error');
+                        }
+                        input.value = '';
+                    });
+
+                    const generateButton = document.getElementById('generate-button');
+                    const resultDiv = document.getElementById('generation-result');
+
+                    generateButton.addEventListener('click', async () => {
+                        setResultState(resultDiv, '', 'info'); // Clear previous results
                         generateButton.disabled = true; // Disable button during generation
+                        const yamlText = buildYamlString();
+                        const file = new File([yamlText], 'settings.yaml', { type: 'text/plain' });
                         // Open the tab synchronously within the click gesture so popup blockers allow it;
                         // its location gets set to the seed link once generation finishes.
                         const seedTab = window.open('', '_blank');
@@ -1848,23 +521,29 @@
                             '-98765',
                             flaskUrl,
                             (message) => {
-                                resultDiv.innerHTML = message;
+                                setResultState(resultDiv, message, 'info');
                             },
                             (error) => {
-                                resultDiv.textContent = `Error: ${error}`;
+                                setResultState(resultDiv, `Error: ${escapeHtml(error)}`, 'error');
                                 generateButton.disabled = false; // Re-enable on error
                             },
                             (successMessage) => {
-                                resultDiv.innerHTML = successMessage;
+                                setResultState(resultDiv, successMessage, 'success');
                                 generateButton.disabled = false; // Re-enable on success
                             },
                             seedTab
                         );
-                    } else {
-                        resultDiv.textContent = 'Please select a YAML file.';
-                    }
-                });
+                    });
+                }
+
+                fetch('generate_a_seed_settings.json')
+                    .then((response) => response.json())
+                    .then((data) => {
+                        settingsData = data;
+                        renderTabs(data.tabs);
+                        buildActionsTab();
+                        restoreFormState();
+                    });
             </script>
-        </p>
     </div> </body>
 </html>
