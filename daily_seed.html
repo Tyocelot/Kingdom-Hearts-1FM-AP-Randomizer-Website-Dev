@@ -18,6 +18,7 @@
                     .then(html => {
                         document.getElementById('header-container').innerHTML = html;
                         document.getElementById('page-subtitle').textContent = 'Daily Seed';
+                        document.getElementById('nav-apworld-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
                     });
             </script>
             <div class="page-intro">

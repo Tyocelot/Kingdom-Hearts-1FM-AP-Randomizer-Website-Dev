@@ -867,6 +867,21 @@ button:active {
     color: var(--accent);
 }
 
+.site-nav__icon-img {
+    display: block;
+    width: 18px;
+    height: 18px;
+    background-color: currentColor;
+    -webkit-mask-image: url('./images/black-icon.png');
+    mask-image: url('./images/black-icon.png');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
 .site-nav__item {
     position: relative;
 }

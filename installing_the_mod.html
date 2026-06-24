@@ -61,7 +61,9 @@
                     .then(html => {
                         document.getElementById('header-container').innerHTML = html;
                         document.getElementById('page-subtitle').textContent = 'Installing the mod';
+                        document.getElementById('nav-apworld-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
                     });
             </script>
+            <script src="config.js"></script>
     </div> </body>
 </html>

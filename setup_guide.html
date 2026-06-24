@@ -18,8 +18,10 @@
                     .then(html => {
                         document.getElementById('header-container').innerHTML = html;
                         document.getElementById('page-subtitle').textContent = 'Setup Guide';
+                        document.getElementById('nav-apworld-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
                     });
             </script>
+            <script src="config.js"></script>
             
             <div class="page-intro">
                 <p>Follow these steps in order to get up and running with the randomizer.</p>

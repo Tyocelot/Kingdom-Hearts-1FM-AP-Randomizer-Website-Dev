@@ -18,8 +18,10 @@
                     .then(html => {
                         document.getElementById('header-container').innerHTML = html;
                         document.getElementById('page-subtitle').textContent = '100 Acre Wood';
+                        document.getElementById('nav-apworld-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
                     });
             </script>
+            <script src="config.js"></script>
         
             <h2>Location Information</h2>
 
