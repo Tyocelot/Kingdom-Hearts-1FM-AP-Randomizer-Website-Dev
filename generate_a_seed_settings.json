@@ -959,7 +959,7 @@
             }
           ],
           "default": "Yes",
-          "description": "If randomizing or shuffling spell MP costs, each indiviudal level of a spell (for example Fire vs Fira vs Firaga) can have different MP costs.",
+          "description": "If randomizing or shuffling spell MP costs, each individual level of a spell (for example Fire vs Fira vs Firaga) can have different MP costs.",
           "yamlKey": "individual_spell_level_costs",
           "transform": "bool"
         },
