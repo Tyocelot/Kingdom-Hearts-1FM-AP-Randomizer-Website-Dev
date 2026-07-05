@@ -803,6 +803,39 @@ button:active {
     transform: translateY(0);
 }
 
+button:disabled {
+    cursor: not-allowed;
+    filter: grayscale(0.6) brightness(0.8);
+    transform: none;
+}
+
+.item-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.seat-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.seat-chip {
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+}
+
+.seat-chip.on-the-clock {
+    border-color: var(--accent-dim);
+    color: var(--text);
+}
+
 /* ===== Site Header / Navigation ===== */
 .visually-hidden {
     position: absolute;

@@ -45,35 +45,14 @@
             </div>
 
             <script src="config.js"></script>
+            <script src="discord_auth.js"></script>
             <script>
                 const flaskBase = FLASK_BASE_URL;
-                const tokenStorageKey = 'kh1_daily_seed_token';
 
                 const authSection = document.getElementById('auth-section');
                 const actionSection = document.getElementById('action-section');
                 const dailySeedResult = document.getElementById('daily-seed-result');
                 const leaderboardResult = document.getElementById('leaderboard-result');
-
-                function decodeTokenPayload(token) {
-                    try {
-                        const payloadB64 = token.split('.')[0];
-                        const padded = payloadB64.replace(/-/g, '+').replace(/_/g, '/');
-                        return JSON.parse(atob(padded));
-                    } catch (e) {
-                        return null;
-                    }
-                }
-
-                function getStoredToken() {
-                    const token = localStorage.getItem(tokenStorageKey);
-                    if (!token) return null;
-                    const payload = decodeTokenPayload(token);
-                    if (!payload || (payload.exp && payload.exp * 1000 < Date.now())) {
-                        localStorage.removeItem(tokenStorageKey);
-                        return null;
-                    }
-                    return token;
-                }
 
                 function setResultMessage(el, message, type = 'info') {
                     el.innerHTML = message;
@@ -83,39 +62,13 @@
                     }
                 }
 
-                function renderAuthSection() {
-                    const token = getStoredToken();
+                captureDiscordTokenFromHash();
+                renderDiscordAuthSection(authSection, (token) => {
+                    actionSection.style.display = token ? 'flex' : 'none';
                     if (!token) {
-                        const returnTo = encodeURIComponent(window.location.origin + window.location.pathname);
-                        authSection.innerHTML = `<a class="discord-login" href="${flaskBase}/oauth/login?return_to=${returnTo}">Login with Discord</a>`;
-                        actionSection.style.display = 'none';
-                        return;
-                    }
-
-                    const payload = decodeTokenPayload(token);
-                    const name = (payload && payload.discord_name) || 'Discord user';
-                    authSection.innerHTML = `
-                        <span class="auth-status"><span class="status-dot"></span>Logged in as <strong>${escapeHtml(name)}</strong></span>
-                        <a href="#" id="logout-link">Logout</a>`;
-                    document.getElementById('logout-link').addEventListener('click', (e) => {
-                        e.preventDefault();
-                        localStorage.removeItem(tokenStorageKey);
                         setResultMessage(dailySeedResult, '');
-                        renderAuthSection();
-                    });
-                    actionSection.style.display = 'flex';
-                }
-
-                // Pick up the token handed back from the OAuth callback redirect.
-                (function captureTokenFromHash() {
-                    const match = window.location.hash.match(/token=([^&]+)/);
-                    if (match) {
-                        localStorage.setItem(tokenStorageKey, decodeURIComponent(match[1]));
-                        history.replaceState(null, '', window.location.pathname + window.location.search);
                     }
-                })();
-
-                renderAuthSection();
+                });
 
                 async function fetchWithTimeout(url, options = {}, timeoutMs = 15000) {
                     const controller = new AbortController();
@@ -135,7 +88,7 @@
                 }
 
                 async function fetchDailySeed() {
-                    const token = getStoredToken();
+                    const token = getStoredDiscordToken();
                     if (!token) {
                         setResultMessage(dailySeedResult, 'Please login with Discord first.', 'error');
                         return;
@@ -178,7 +131,7 @@
                 }
 
                 async function checkCompletion() {
-                    const token = getStoredToken();
+                    const token = getStoredDiscordToken();
                     if (!token) {
                         setResultMessage(dailySeedResult, 'Please login with Discord first.', 'error');
                         return;
@@ -195,12 +148,6 @@
                     } catch (error) {
                         setResultMessage(dailySeedResult, describeFetchFailure(error), 'error');
                     }
-                }
-
-                function escapeHtml(value) {
-                    return String(value).replace(/[&<>"']/g, (c) => ({
-                        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-                    }[c]));
                 }
 
                 async function refreshLeaderboard() {

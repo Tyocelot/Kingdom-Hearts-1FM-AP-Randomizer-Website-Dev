@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Draft</title>
+    <link rel="icon" type="image/x-icon" href="./images/icon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+    <body>
+        <div class="container">
+            <!-- Make dark mode -->
+            <meta name    = "color-scheme" content = "light dark"/>
+
+            <div id="header-container"></div>
+
+            <script>
+                fetch('header.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('header-container').innerHTML = html;
+                        document.getElementById('page-subtitle').textContent = 'Draft';
+                        document.getElementById('nav-apworld-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
+                    });
+            </script>
+            <div class="page-intro">
+                <p>Log in with Discord, then create or join a draft game to draft KH1 items with friends before racing. The host uploads one settings YAML to generate the seed; everyone else races that same seed in their own room, with their own drafted items delivered automatically.</p>
+            </div>
+
+            <div class="card">
+                <div id="auth-section" class="auth-section"></div>
+            </div>
+
+            <div id="lobby-section" class="card" style="display:none;">
+                <h3>Create a Draft Game</h3>
+                <div class="settings-grid" id="create-form"></div>
+                <div class="action-row">
+                    <button id="create-game-button">Create Game</button>
+                </div>
+                <div id="create-result" class="result-box"></div>
+
+                <h3>Join a Draft Game</h3>
+                <div class="action-row">
+                    <input type="text" id="join-game-id-input" placeholder="Game ID">
+                    <button class="secondary" id="join-game-button">Join Game</button>
+                </div>
+                <div id="join-result" class="result-box"></div>
+            </div>
+
+            <div id="game-section" class="card" style="display:none;">
+                <h3>Draft Game <span id="game-id-label"></span> <button class="ghost-button" id="leave-game-button">Leave</button></h3>
+                <div id="seat-list" class="seat-list"></div>
+                <div id="status-message" class="result-box"></div>
+
+                <div id="pool-section" style="display:none;">
+                    <h3>Item Pool</h3>
+                    <div id="item-pool" class="item-pool"></div>
+                </div>
+
+                <div id="host-start-section" class="action-row" style="display:none;">
+                    <button id="start-draft-button">Start Draft</button>
+                </div>
+
+                <div id="yaml-section" style="display:none;">
+                    <h3>Host: Upload Settings</h3>
+                    <p class="seed-actions__hint">Need a YAML? Build one on the <a href="generate_a_seed">Generate a Seed</a> page's Finish tab (Save Settings), then upload it here.</p>
+                    <div class="action-row">
+                        <input type="file" id="yaml-file-input" accept=".yaml,.yml">
+                        <button id="upload-yaml-button">Upload &amp; Generate</button>
+                    </div>
+                </div>
+
+                <div id="result-section" class="result-box"></div>
+            </div>
+
+            <script src="config.js"></script>
+            <script src="discord_auth.js"></script>
+            <script>
+                const flaskBase = FLASK_BASE_URL;
+                const POLL_INTERVAL_MS = 3000;
+
+                const authSection = document.getElementById('auth-section');
+                const lobbySection = document.getElementById('lobby-section');
+                const gameSection = document.getElementById('game-section');
+                const createResult = document.getElementById('create-result');
+                const joinResult = document.getElementById('join-result');
+                const statusMessage = document.getElementById('status-message');
+                const resultSection = document.getElementById('result-section');
+
+                let currentGameId = null;
+                let pollTimer = null;
+                let categoriesData = null;
+
+                function setResultState(el, message, type = 'info') {
+                    el.innerHTML = message;
+                    el.classList.remove('success', 'error');
+                    if (type === 'success' || type === 'error') {
+                        el.classList.add(type);
+                    }
+                }
+
+                function authHeaders() {
+                    const token = getStoredDiscordToken();
+                    return token ? { 'Authorization': `Bearer ${token}` } : {};
+                }
+
+                async function apiPost(path, body) {
+                    const response = await fetch(`${flaskBase}${path}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', ...authHeaders() },
+                        body: JSON.stringify(body || {}),
+                    });
+                    const data = await response.json().catch(() => ({}));
+                    if (!response.ok) {
+                        throw new Error(data.error || `Request failed (${response.status})`);
+                    }
+                    return data;
+                }
+
+                async function apiGet(path) {
+                    const response = await fetch(`${flaskBase}${path}`, { headers: authHeaders() });
+                    const data = await response.json().catch(() => ({}));
+                    if (!response.ok) {
+                        throw new Error(data.error || `Request failed (${response.status})`);
+                    }
+                    return data;
+                }
+
+                function buildCreateForm() {
+                    const container = document.getElementById('create-form');
+                    container.innerHTML = `
+                        <div class="setting-row">
+                            <span class="setting-row__label">Draft Type</span>
+                            <div class="setting-row__control">
+                                <select id="draft-type-select">
+                                    <option value="snake">Snake</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-row__label">Max Players</span>
+                            <div class="setting-row__control">
+                                <input type="text" id="max-players-input" value="2">
+                            </div>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-row__label">Picks per Player</span>
+                            <div class="setting-row__control">
+                                <input type="text" id="picks-per-player-input" value="5">
+                            </div>
+                        </div>
+                        <div class="setting-row">
+                            <span class="setting-row__label">Item Categories</span>
+                            <div class="setting-row__control" id="category-checkboxes"></div>
+                        </div>`;
+
+                    const categoryContainer = document.getElementById('category-checkboxes');
+                    categoriesData.categories.forEach((category) => {
+                        const label = document.createElement('label');
+                        label.style.marginRight = '12px';
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.value = category;
+                        checkbox.className = 'category-checkbox';
+                        checkbox.checked = categoriesData.default.includes(category);
+                        label.appendChild(checkbox);
+                        label.appendChild(document.createTextNode(' ' + category));
+                        categoryContainer.appendChild(label);
+                    });
+                }
+
+                async function loadCategories() {
+                    try {
+                        categoriesData = await apiGet('/draft/item_categories');
+                        buildCreateForm();
+                    } catch (error) {
+                        setResultState(createResult, escapeHtml(error.message), 'error');
+                    }
+                }
+
+                async function createGame() {
+                    setResultState(createResult, '', 'info');
+                    const itemCategories = Array.from(document.querySelectorAll('.category-checkbox:checked')).map((el) => el.value);
+                    try {
+                        const data = await apiPost('/draft/create', {
+                            draft_type: document.getElementById('draft-type-select').value,
+                            max_players: document.getElementById('max-players-input').value,
+                            picks_per_player: document.getElementById('picks-per-player-input').value,
+                            item_categories: itemCategories,
+                        });
+                        enterGame(data.game_id);
+                    } catch (error) {
+                        setResultState(createResult, escapeHtml(error.message), 'error');
+                    }
+                }
+
+                async function joinGame() {
+                    setResultState(joinResult, '', 'info');
+                    const gameId = document.getElementById('join-game-id-input').value.trim();
+                    if (!gameId) {
+                        setResultState(joinResult, 'Enter a game ID.', 'error');
+                        return;
+                    }
+                    try {
+                        await apiPost('/draft/join', { game_id: gameId });
+                        enterGame(gameId);
+                    } catch (error) {
+                        setResultState(joinResult, escapeHtml(error.message), 'error');
+                    }
+                }
+
+                function enterGame(gameId) {
+                    currentGameId = gameId;
+                    history.replaceState(null, '', `${window.location.pathname}?game_id=${gameId}`);
+                    lobbySection.style.display = 'none';
+                    gameSection.style.display = 'block';
+                    document.getElementById('game-id-label').textContent = `#${gameId}`;
+                    stopPolling();
+                    pollState();
+                    pollTimer = setInterval(pollState, POLL_INTERVAL_MS);
+                }
+
+                function leaveGame() {
+                    stopPolling();
+                    currentGameId = null;
+                    history.replaceState(null, '', window.location.pathname);
+                    gameSection.style.display = 'none';
+                    lobbySection.style.display = 'block';
+                }
+
+                function stopPolling() {
+                    if (pollTimer) {
+                        clearInterval(pollTimer);
+                        pollTimer = null;
+                    }
+                }
+
+                async function pollState() {
+                    if (!currentGameId) return;
+                    try {
+                        const state = await apiGet(`/draft/${currentGameId}/state`);
+                        renderGameState(state);
+                    } catch (error) {
+                        setResultState(statusMessage, escapeHtml(error.message), 'error');
+                    }
+                }
+
+                const STATUS_LABELS = {
+                    lobby: 'Waiting for players to join...',
+                    drafting: 'Draft in progress.',
+                    awaiting_yaml: 'Waiting on the host to upload settings.',
+                    generating: 'Generating your seed...',
+                    sending_items: 'Delivering drafted items to each room...',
+                    complete: 'Done! Your room is ready.',
+                    error: 'Something went wrong.',
+                };
+
+                function renderGameState(state) {
+                    document.getElementById('seat-list').innerHTML = state.seats.map((seat) => {
+                        const onClock = seat.seat_number === state.on_the_clock_seat;
+                        return `<span class="seat-chip${onClock ? ' on-the-clock' : ''}">Seat ${seat.seat_number}: ${escapeHtml(seat.discord_name)}${onClock ? ' (on the clock)' : ''}</span>`;
+                    }).join('');
+
+                    setResultState(statusMessage, STATUS_LABELS[state.status] || state.status, state.status === 'error' ? 'error' : 'info');
+
+                    document.getElementById('host-start-section').style.display =
+                        (state.status === 'lobby' && state.is_host) ? 'flex' : 'none';
+
+                    const poolSection = document.getElementById('pool-section');
+                    if (state.status === 'drafting') {
+                        poolSection.style.display = 'block';
+                        const poolContainer = document.getElementById('item-pool');
+                        poolContainer.innerHTML = '';
+                        state.pool.forEach((itemName) => {
+                            const button = document.createElement('button');
+                            button.textContent = itemName;
+                            button.disabled = !state.your_turn;
+                            button.addEventListener('click', () => pickItem(itemName));
+                            poolContainer.appendChild(button);
+                        });
+                    } else {
+                        poolSection.style.display = 'none';
+                    }
+
+                    document.getElementById('yaml-section').style.display =
+                        (state.status === 'awaiting_yaml' && state.is_host) ? 'block' : 'none';
+
+                    if (state.status === 'complete') {
+                        setResultState(resultSection, `Your room is ready: <a href="${state.room_link}">${state.room_link}</a>`, 'success');
+                        stopPolling();
+                    } else if (state.status === 'error') {
+                        setResultState(resultSection, escapeHtml(state.error_message || 'Unknown error.'), 'error');
+                        stopPolling();
+                    } else {
+                        setResultState(resultSection, '');
+                    }
+                }
+
+                async function startDraft() {
+                    try {
+                        await apiPost(`/draft/${currentGameId}/start`);
+                        pollState();
+                    } catch (error) {
+                        setResultState(statusMessage, escapeHtml(error.message), 'error');
+                    }
+                }
+
+                async function pickItem(itemName) {
+                    try {
+                        await apiPost(`/draft/${currentGameId}/pick`, { item_name: itemName });
+                        pollState();
+                    } catch (error) {
+                        setResultState(statusMessage, escapeHtml(error.message), 'error');
+                    }
+                }
+
+                async function uploadYaml() {
+                    const input = document.getElementById('yaml-file-input');
+                    const file = input.files[0];
+                    if (!file) {
+                        setResultState(resultSection, 'Choose a YAML file first.', 'error');
+                        return;
+                    }
+                    const token = getStoredDiscordToken();
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    try {
+                        setResultState(resultSection, 'Uploading and generating - this can take a little while...', 'info');
+                        const response = await fetch(`${flaskBase}/draft/${currentGameId}/upload_yaml`, {
+                            method: 'POST',
+                            headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+                            body: formData,
+                        });
+                        const data = await response.json().catch(() => ({}));
+                        if (!response.ok) {
+                            throw new Error(data.error || `Request failed (${response.status})`);
+                        }
+                        pollState();
+                    } catch (error) {
+                        setResultState(resultSection, escapeHtml(error.message), 'error');
+                    }
+                }
+
+                captureDiscordTokenFromHash();
+                renderDiscordAuthSection(authSection, (token) => {
+                    lobbySection.style.display = (token && !currentGameId) ? 'block' : 'none';
+                    if (token && !categoriesData) {
+                        loadCategories();
+                    }
+                });
+
+                document.getElementById('create-game-button').addEventListener('click', createGame);
+                document.getElementById('join-game-button').addEventListener('click', joinGame);
+                document.getElementById('leave-game-button').addEventListener('click', leaveGame);
+                document.getElementById('start-draft-button').addEventListener('click', startDraft);
+                document.getElementById('upload-yaml-button').addEventListener('click', uploadYaml);
+
+                const urlGameId = new URLSearchParams(window.location.search).get('game_id');
+                if (urlGameId && getStoredDiscordToken()) {
+                    enterGame(urlGameId);
+                }
+            </script>
+        </div>
+    </body>
+</html>
