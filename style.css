@@ -858,7 +858,7 @@ button:disabled {
 
 .category-checkboxes {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 8px;
 }
 
@@ -872,10 +872,13 @@ button:disabled {
     border-radius: var(--radius);
     cursor: pointer;
     /* Without this, a grid item's default min-width:auto lets long
-       unbreakable text (e.g. "Shared Abilities") force its column wider
-       than the 160px track size, throwing off every row sharing that
-       column - this lets the text wrap instead. */
+       unbreakable text force its column wider than the track size,
+       throwing off every row sharing that column. */
     min-width: 0;
+    /* 200px above is wide enough for the longest label ("Shared
+       Abilities") on one line - nowrap keeps every row the same height
+       instead of just that one wrapping to two lines. */
+    white-space: nowrap;
 }
 
 .category-checkboxes label:hover {
