@@ -823,6 +823,16 @@ button:disabled {
     font-size: 0.9em;
 }
 
+.pool-icon {
+    width: 1.4em;
+    height: 1.4em;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 6px;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
 .draft-form {
     display: flex;
     flex-direction: column;

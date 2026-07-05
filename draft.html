@@ -77,6 +77,50 @@
                 const flaskBase = FLASK_BASE_URL;
                 const POLL_INTERVAL_MS = 3000;
 
+                // Icons are hotlinked from the public
+                // Televo/kingdom-hearts-recollection repo via jsDelivr rather
+                // than committed here - keeps this repo free of ~270MB of
+                // unused icons/fonts/sound/wallpapers from that asset pack.
+                const ICON_BASE = 'https://cdn.jsdelivr.net/gh/Televo/kingdom-hearts-recollection@main/';
+                function iconUrl(relativePath) {
+                    return ICON_BASE + encodeURI(relativePath);
+                }
+
+                // Exact per-item icons, checked before the category fallback below.
+                const ITEM_ICONS = {
+                    'Blue Trinity': 'Minimal/Key Items/KH1 Key Items/Blue Trinity.png',
+                    'Red Trinity': 'Minimal/Key Items/KH1 Key Items/Red Trinity.png',
+                    'Green Trinity': 'Minimal/Key Items/KH1 Key Items/Green Trinity.png',
+                    'Yellow Trinity': 'Minimal/Key Items/KH1 Key Items/Yellow Trinity.png',
+                    'White Trinity': 'Minimal/Key Items/KH1 Key Items/White Trinity.png',
+                };
+
+                // One representative icon per category. Augment, Camping, Weapons,
+                // and Worlds are deliberately omitted - no single icon in the pack
+                // confidently represents them, so those rows/checkboxes just show
+                // no icon rather than a misleading one.
+                const CATEGORY_ICONS = {
+                    'Abilities': 'Minimal/Config/Ability.png',
+                    'Shared Abilities': 'Minimal/Config/Ability.png',
+                    'Accessory': 'Minimal/Config/Accessory.png',
+                    'Cups': 'Minimal/Key Items/KH1 Key Items/Olympus Cups.png',
+                    'Item': 'Minimal/Config/Item.png',
+                    'Key': 'Minimal/Config/Key Item.png',
+                    'Keyblades': 'Minimal/Config/Keyblade.png',
+                    'Level Up': 'Minimal/Config/Boost.png',
+                    'Limited Level Up': 'Minimal/Config/Boost.png',
+                    'Magic': 'Minimal/Config/Magic.png',
+                    'Stat Ups': 'Minimal/Config/Boost.png',
+                    'Summons': 'Minimal/Config/Summon.png',
+                    'Torn Pages': 'Minimal/Key Items/Torn Pages.png',
+                    'Trinities': 'Minimal/Config/Cross.png',
+                };
+
+                function iconFor(itemName, category) {
+                    const relative = ITEM_ICONS[itemName] || CATEGORY_ICONS[category];
+                    return relative ? iconUrl(relative) : null;
+                }
+
                 const authSection = document.getElementById('auth-section');
                 const lobbySection = document.getElementById('lobby-section');
                 const gameSection = document.getElementById('game-section');
@@ -155,6 +199,15 @@
                         checkbox.className = 'category-checkbox';
                         checkbox.checked = categoriesData.default.includes(category);
                         label.appendChild(checkbox);
+                        const icon = CATEGORY_ICONS[category];
+                        if (icon) {
+                            const img = document.createElement('img');
+                            img.className = 'pool-icon';
+                            img.src = iconUrl(icon);
+                            img.alt = '';
+                            img.loading = 'lazy';
+                            label.appendChild(img);
+                        }
                         label.appendChild(document.createTextNode(category));
                         categoryContainer.appendChild(label);
                     });
@@ -249,14 +302,25 @@
                 function renderItemPool(pool, yourTurn) {
                     const poolContainer = document.getElementById('item-pool');
                     const counts = new Map();
-                    pool.forEach((name) => counts.set(name, (counts.get(name) || 0) + 1));
+                    pool.forEach(({ item_name, category }) => {
+                        const existing = counts.get(item_name);
+                        if (existing) {
+                            existing.count += 1;
+                        } else {
+                            counts.set(item_name, { category, count: 1 });
+                        }
+                    });
                     const entries = Array.from(counts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
 
-                    const rows = entries.map(([name, count]) => `
+                    const rows = entries.map(([name, { category, count }]) => {
+                        const icon = iconFor(name, category);
+                        const iconImg = icon ? `<img class="pool-icon" src="${icon}" alt="" loading="lazy">` : '';
+                        return `
                         <tr>
-                            <td>${escapeHtml(name)}${count > 1 ? ` <span class="pool-count">&times;${count}</span>` : ''}</td>
+                            <td>${iconImg}${escapeHtml(name)}${count > 1 ? ` <span class="pool-count">&times;${count}</span>` : ''}</td>
                             <td><button type="button" class="secondary pick-button" data-item="${escapeHtml(name)}" ${yourTurn ? '' : 'disabled'}>Draft</button></td>
-                        </tr>`).join('');
+                        </tr>`;
+                    }).join('');
 
                     poolContainer.innerHTML = `
                         <table class="location-table">
