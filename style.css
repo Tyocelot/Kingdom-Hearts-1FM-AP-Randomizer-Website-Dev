@@ -871,6 +871,11 @@ button:disabled {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     cursor: pointer;
+    /* Without this, a grid item's default min-width:auto lets long
+       unbreakable text (e.g. "Shared Abilities") force its column wider
+       than the 160px track size, throwing off every row sharing that
+       column - this lets the text wrap instead. */
+    min-width: 0;
 }
 
 .category-checkboxes label:hover {
