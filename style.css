@@ -857,9 +857,34 @@ button:disabled {
 }
 
 .category-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+}
+
+.category-checkboxes label {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px 16px;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.category-checkboxes label:hover {
+    background: var(--surface-hover);
+    border-color: var(--accent-dim);
+}
+
+.category-checkboxes input[type="checkbox"] {
+    margin: 0;
+    flex: 0 0 auto;
+}
+
+.category-checkboxes .pool-icon {
+    margin-right: 0;
 }
 
 .category-checkboxes label {
