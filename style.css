@@ -887,14 +887,6 @@ button:disabled {
     margin-right: 0;
 }
 
-.category-checkboxes label {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-    font-weight: normal;
-}
-
 .seat-list {
     display: flex;
     flex-wrap: wrap;
