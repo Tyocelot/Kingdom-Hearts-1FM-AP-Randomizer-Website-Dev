@@ -39,14 +39,14 @@
 
                 <h3>Join a Draft Game</h3>
                 <div class="action-row">
-                    <input type="text" id="join-game-id-input" placeholder="Game ID">
+                    <input type="text" id="join-code-input" placeholder="Join Code">
                     <button class="secondary" id="join-game-button">Join Game</button>
                 </div>
                 <div id="join-result" class="result-box"></div>
             </div>
 
             <div id="game-section" class="card" style="display:none;">
-                <h3>Draft Game <span id="game-id-label"></span> <button class="ghost-button" id="leave-game-button">Leave</button></h3>
+                <h3>Draft Game <span id="join-code-label"></span> <button class="ghost-button" id="leave-game-button">Leave</button></h3>
                 <div id="seat-list" class="seat-list"></div>
                 <div id="status-message" class="result-box"></div>
 
@@ -129,7 +129,7 @@
                 const statusMessage = document.getElementById('status-message');
                 const resultSection = document.getElementById('result-section');
 
-                let currentGameId = null;
+                let currentJoinCode = null;
                 let pollTimer = null;
                 let categoriesData = null;
 
@@ -232,7 +232,7 @@
                             picks_per_player: document.getElementById('picks-per-player-input').value,
                             item_categories: itemCategories,
                         });
-                        enterGame(data.game_id);
+                        enterGame(data.join_code);
                     } catch (error) {
                         setResultState(createResult, escapeHtml(error.message), 'error');
                     }
@@ -240,25 +240,25 @@
 
                 async function joinGame() {
                     setResultState(joinResult, '', 'info');
-                    const gameId = document.getElementById('join-game-id-input').value.trim();
-                    if (!gameId) {
-                        setResultState(joinResult, 'Enter a game ID.', 'error');
+                    const joinCode = document.getElementById('join-code-input').value.trim().toUpperCase();
+                    if (!joinCode) {
+                        setResultState(joinResult, 'Enter a join code.', 'error');
                         return;
                     }
                     try {
-                        await apiPost('/draft/join', { game_id: gameId });
-                        enterGame(gameId);
+                        await apiPost('/draft/join', { join_code: joinCode });
+                        enterGame(joinCode);
                     } catch (error) {
                         setResultState(joinResult, escapeHtml(error.message), 'error');
                     }
                 }
 
-                function enterGame(gameId) {
-                    currentGameId = gameId;
-                    history.replaceState(null, '', `${window.location.pathname}?game_id=${gameId}`);
+                function enterGame(joinCode) {
+                    currentJoinCode = joinCode;
+                    history.replaceState(null, '', `${window.location.pathname}?join_code=${joinCode}`);
                     lobbySection.style.display = 'none';
                     gameSection.style.display = 'block';
-                    document.getElementById('game-id-label').textContent = `#${gameId}`;
+                    document.getElementById('join-code-label').textContent = joinCode;
                     stopPolling();
                     pollState();
                     pollTimer = setInterval(pollState, POLL_INTERVAL_MS);
@@ -266,7 +266,7 @@
 
                 function leaveGame() {
                     stopPolling();
-                    currentGameId = null;
+                    currentJoinCode = null;
                     history.replaceState(null, '', window.location.pathname);
                     gameSection.style.display = 'none';
                     lobbySection.style.display = 'block';
@@ -280,9 +280,9 @@
                 }
 
                 async function pollState() {
-                    if (!currentGameId) return;
+                    if (!currentJoinCode) return;
                     try {
-                        const state = await apiGet(`/draft/${currentGameId}/state`);
+                        const state = await apiGet(`/draft/${currentJoinCode}/state`);
                         renderGameState(state);
                     } catch (error) {
                         setResultState(statusMessage, escapeHtml(error.message), 'error');
@@ -368,7 +368,7 @@
 
                 async function startDraft() {
                     try {
-                        await apiPost(`/draft/${currentGameId}/start`);
+                        await apiPost(`/draft/${currentJoinCode}/start`);
                         pollState();
                     } catch (error) {
                         setResultState(statusMessage, escapeHtml(error.message), 'error');
@@ -377,7 +377,7 @@
 
                 async function pickItem(itemName) {
                     try {
-                        await apiPost(`/draft/${currentGameId}/pick`, { item_name: itemName });
+                        await apiPost(`/draft/${currentJoinCode}/pick`, { item_name: itemName });
                         pollState();
                     } catch (error) {
                         setResultState(statusMessage, escapeHtml(error.message), 'error');
@@ -396,7 +396,7 @@
                     formData.append('file', file);
                     try {
                         setResultState(resultSection, 'Uploading and generating - this can take a little while...', 'info');
-                        const response = await fetch(`${flaskBase}/draft/${currentGameId}/upload_yaml`, {
+                        const response = await fetch(`${flaskBase}/draft/${currentJoinCode}/upload_yaml`, {
                             method: 'POST',
                             headers: token ? { 'Authorization': `Bearer ${token}` } : {},
                             body: formData,
@@ -413,7 +413,7 @@
 
                 captureDiscordTokenFromHash();
                 renderDiscordAuthSection(authSection, (token) => {
-                    lobbySection.style.display = (token && !currentGameId) ? 'block' : 'none';
+                    lobbySection.style.display = (token && !currentJoinCode) ? 'block' : 'none';
                     if (token && !categoriesData) {
                         loadCategories();
                     }
@@ -425,9 +425,9 @@
                 document.getElementById('start-draft-button').addEventListener('click', startDraft);
                 document.getElementById('upload-yaml-button').addEventListener('click', uploadYaml);
 
-                const urlGameId = new URLSearchParams(window.location.search).get('game_id');
-                if (urlGameId && getStoredDiscordToken()) {
-                    enterGame(urlGameId);
+                const urlJoinCode = new URLSearchParams(window.location.search).get('join_code');
+                if (urlJoinCode && getStoredDiscordToken()) {
+                    enterGame(urlJoinCode);
                 }
             </script>
         </div>
