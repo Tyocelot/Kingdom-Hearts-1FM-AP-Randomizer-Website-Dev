@@ -810,10 +810,17 @@ button:disabled {
 }
 
 .item-pool {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
     margin: 10px 0;
+}
+
+.item-pool .location-table td:last-child {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.pool-count {
+    color: var(--text-dim);
+    font-size: 0.9em;
 }
 
 .draft-form {

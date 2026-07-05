@@ -246,6 +246,29 @@
                     error: 'Something went wrong.',
                 };
 
+                function renderItemPool(pool, yourTurn) {
+                    const poolContainer = document.getElementById('item-pool');
+                    const counts = new Map();
+                    pool.forEach((name) => counts.set(name, (counts.get(name) || 0) + 1));
+                    const entries = Array.from(counts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+
+                    const rows = entries.map(([name, count]) => `
+                        <tr>
+                            <td>${escapeHtml(name)}${count > 1 ? ` <span class="pool-count">&times;${count}</span>` : ''}</td>
+                            <td><button type="button" class="secondary pick-button" data-item="${escapeHtml(name)}" ${yourTurn ? '' : 'disabled'}>Draft</button></td>
+                        </tr>`).join('');
+
+                    poolContainer.innerHTML = `
+                        <table class="location-table">
+                            <thead><tr><th>Item</th><th></th></tr></thead>
+                            <tbody>${rows}</tbody>
+                        </table>`;
+
+                    poolContainer.querySelectorAll('.pick-button').forEach((button) => {
+                        button.addEventListener('click', () => pickItem(button.dataset.item));
+                    });
+                }
+
                 function renderGameState(state) {
                     document.getElementById('seat-list').innerHTML = state.seats.map((seat) => {
                         const onClock = seat.seat_number === state.on_the_clock_seat;
@@ -260,15 +283,7 @@
                     const poolSection = document.getElementById('pool-section');
                     if (state.status === 'drafting') {
                         poolSection.style.display = 'block';
-                        const poolContainer = document.getElementById('item-pool');
-                        poolContainer.innerHTML = '';
-                        state.pool.forEach((itemName) => {
-                            const button = document.createElement('button');
-                            button.textContent = itemName;
-                            button.disabled = !state.your_turn;
-                            button.addEventListener('click', () => pickItem(itemName));
-                            poolContainer.appendChild(button);
-                        });
+                        renderItemPool(state.pool, state.your_turn);
                     } else {
                         poolSection.style.display = 'none';
                     }
