@@ -31,7 +31,7 @@
 
             <div id="lobby-section" class="card" style="display:none;">
                 <h3>Create a Draft Game</h3>
-                <div class="settings-grid" id="create-form"></div>
+                <div class="draft-form" id="create-form"></div>
                 <div class="action-row">
                     <button id="create-game-button">Create Game</button>
                 </div>
@@ -127,42 +127,35 @@
                 function buildCreateForm() {
                     const container = document.getElementById('create-form');
                     container.innerHTML = `
-                        <div class="setting-row">
-                            <span class="setting-row__label">Draft Type</span>
-                            <div class="setting-row__control">
-                                <select id="draft-type-select">
-                                    <option value="snake">Snake</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="setting-row">
-                            <span class="setting-row__label">Max Players</span>
-                            <div class="setting-row__control">
-                                <input type="text" id="max-players-input" value="2">
-                            </div>
-                        </div>
-                        <div class="setting-row">
-                            <span class="setting-row__label">Picks per Player</span>
-                            <div class="setting-row__control">
-                                <input type="text" id="picks-per-player-input" value="5">
-                            </div>
-                        </div>
-                        <div class="setting-row">
-                            <span class="setting-row__label">Item Categories</span>
-                            <div class="setting-row__control" id="category-checkboxes"></div>
+                        <label class="draft-form__field">
+                            <span>Draft Type</span>
+                            <select id="draft-type-select">
+                                <option value="snake">Snake</option>
+                            </select>
+                        </label>
+                        <label class="draft-form__field">
+                            <span>Max Players</span>
+                            <input type="text" id="max-players-input" value="2">
+                        </label>
+                        <label class="draft-form__field">
+                            <span>Picks per Player</span>
+                            <input type="text" id="picks-per-player-input" value="5">
+                        </label>
+                        <div class="draft-form__field">
+                            <span>Item Categories</span>
+                            <div class="category-checkboxes" id="category-checkboxes"></div>
                         </div>`;
 
                     const categoryContainer = document.getElementById('category-checkboxes');
                     categoriesData.categories.forEach((category) => {
                         const label = document.createElement('label');
-                        label.style.marginRight = '12px';
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
                         checkbox.value = category;
                         checkbox.className = 'category-checkbox';
                         checkbox.checked = categoriesData.default.includes(category);
                         label.appendChild(checkbox);
-                        label.appendChild(document.createTextNode(' ' + category));
+                        label.appendChild(document.createTextNode(category));
                         categoryContainer.appendChild(label);
                     });
                 }

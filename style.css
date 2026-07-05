@@ -816,6 +816,43 @@ button:disabled {
     margin: 10px 0;
 }
 
+.draft-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.draft-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.draft-form__field > span {
+    font-weight: 500;
+}
+
+.draft-form__field select,
+.draft-form__field > input[type="text"] {
+    width: 100%;
+    max-width: 240px;
+}
+
+.category-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+}
+
+.category-checkboxes label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    font-weight: normal;
+}
+
 .seat-list {
     display: flex;
     flex-wrap: wrap;
