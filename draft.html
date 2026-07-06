@@ -374,24 +374,39 @@
                         return;
                     }
                     const currentGrid = grids[currentGridNumber];
+                    const lineHasCards = (cells) => cells.some(([row, col]) => currentGrid[row][col] && !currentGrid[row][col].taken);
 
-                    const boardHtml = currentGrid.map((rowCells) => rowCells.map((cell) => {
+                    function headerButtonHtml(lineType, lineIndex, cells, label) {
+                        const enabled = yourTurn && lineHasCards(cells);
+                        return `<button type="button" class="secondary grid-draft__header-button grid-line-button" data-line-type="${lineType}" data-line-index="${lineIndex}" ${enabled ? '' : 'disabled'}>${label}</button>`;
+                    }
+
+                    function cellHtml(cell) {
                         if (!cell || cell.taken) {
                             return `<div class="grid-draft__cell taken"></div>`;
                         }
                         const icon = iconFor(cell.item_name, cell.category);
                         const iconImg = icon ? `<img class="pool-icon" src="${icon}" alt="" loading="lazy">` : '';
                         return `<div class="grid-draft__cell">${iconImg}<span>${escapeHtml(cell.item_name)}</span></div>`;
-                    }).join('')).join('');
-
-                    const lineHasCards = (cells) => cells.some(([row, col]) => currentGrid[row][col] && !currentGrid[row][col].taken);
-
-                    function lineButtonsHtml(lineType, lines, labels) {
-                        return lines.map((cells, lineIndex) => {
-                            const enabled = yourTurn && lineHasCards(cells);
-                            return `<button type="button" class="secondary grid-line-button" data-line-type="${lineType}" data-line-index="${lineIndex}" ${enabled ? '' : 'disabled'}>${labels[lineIndex]}</button>`;
-                        }).join('');
                     }
+
+                    // Built as a flat, row-major list and laid out by the
+                    // 5-column CSS grid below (diagonal corner, 3 column
+                    // buttons, diagonal corner; then for each grid row, its
+                    // row button followed by its 3 cells) - this puts each
+                    // header button directly beside the line it selects
+                    // instead of grouped in a separate control panel.
+                    const boardItems = [
+                        headerButtonHtml('diagonal', 0, GRID_DIAGONAL_LINES[0], '↘'),
+                        headerButtonHtml('column', 0, GRID_COLUMN_LINES[0], 'Col 1'),
+                        headerButtonHtml('column', 1, GRID_COLUMN_LINES[1], 'Col 2'),
+                        headerButtonHtml('column', 2, GRID_COLUMN_LINES[2], 'Col 3'),
+                        headerButtonHtml('diagonal', 1, GRID_DIAGONAL_LINES[1], '↙'),
+                    ];
+                    GRID_ROW_LINES.forEach((cells, rowIndex) => {
+                        boardItems.push(headerButtonHtml('row', rowIndex, cells, `Row ${rowIndex + 1}`));
+                        currentGrid[rowIndex].forEach((cell) => boardItems.push(cellHtml(cell)));
+                    });
 
                     const historyHtml = grids.map((grid, gridNumber) => {
                         if (gridNumber === currentGridNumber) return '';
@@ -403,21 +418,7 @@
 
                     container.innerHTML = `
                         <div class="grid-draft">
-                            <div class="grid-draft__board">${boardHtml}</div>
-                            <div class="grid-draft__lines">
-                                <div class="grid-draft__line-group">
-                                    <span>Rows</span>
-                                    <div class="grid-draft__line-buttons">${lineButtonsHtml('row', GRID_ROW_LINES, ['Row 1', 'Row 2', 'Row 3'])}</div>
-                                </div>
-                                <div class="grid-draft__line-group">
-                                    <span>Columns</span>
-                                    <div class="grid-draft__line-buttons">${lineButtonsHtml('column', GRID_COLUMN_LINES, ['Col 1', 'Col 2', 'Col 3'])}</div>
-                                </div>
-                                <div class="grid-draft__line-group">
-                                    <span>Diagonals</span>
-                                    <div class="grid-draft__line-buttons">${lineButtonsHtml('diagonal', GRID_DIAGONAL_LINES, ['↘', '↙'])}</div>
-                                </div>
-                            </div>
+                            <div class="grid-draft__board">${boardItems.join('')}</div>
                             ${historyHtml ? `<div class="grid-draft__history">${historyHtml}</div>` : ''}
                         </div>`;
 
