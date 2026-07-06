@@ -51,7 +51,7 @@
                 <div id="status-message" class="result-box"></div>
 
                 <div id="pool-section" style="display:none;">
-                    <h3>Item Pool</h3>
+                    <h3 id="pool-section-title">Item Pool</h3>
                     <div id="item-pool" class="item-pool"></div>
                 </div>
 
@@ -172,20 +172,45 @@
                             <span>Draft Type</span>
                             <select id="draft-type-select">
                                 <option value="snake">Snake</option>
+                                <option value="grid">Grid</option>
                             </select>
                         </label>
                         <label class="draft-form__field">
                             <span>Max Players</span>
                             <input type="text" id="max-players-input" value="2">
                         </label>
-                        <label class="draft-form__field">
+                        <label class="draft-form__field" id="picks-per-player-field">
                             <span>Picks per Player</span>
                             <input type="text" id="picks-per-player-input" value="5">
+                        </label>
+                        <label class="draft-form__field" id="num-grids-field" style="display:none;">
+                            <span>Number of Grids</span>
+                            <input type="text" id="num-grids-input" value="3">
                         </label>
                         <div class="draft-form__field">
                             <span>Item Categories</span>
                             <div class="category-checkboxes" id="category-checkboxes"></div>
                         </div>`;
+
+                    // Grid draft (https://luckypaper.co/resources/formats/grid-draft/)
+                    // is fixed to 2 players and sized by number of 3x3 grids
+                    // instead of picks-per-player, so swap those fields
+                    // in/out based on the selected draft type.
+                    const draftTypeSelect = document.getElementById('draft-type-select');
+                    const maxPlayersInput = document.getElementById('max-players-input');
+                    const picksPerPlayerField = document.getElementById('picks-per-player-field');
+                    const numGridsField = document.getElementById('num-grids-field');
+                    function updateDraftTypeFields() {
+                        const isGrid = draftTypeSelect.value === 'grid';
+                        picksPerPlayerField.style.display = isGrid ? 'none' : 'flex';
+                        numGridsField.style.display = isGrid ? 'flex' : 'none';
+                        maxPlayersInput.disabled = isGrid;
+                        if (isGrid) {
+                            maxPlayersInput.value = '2';
+                        }
+                    }
+                    draftTypeSelect.addEventListener('change', updateDraftTypeFields);
+                    updateDraftTypeFields();
 
                     const categoryContainer = document.getElementById('category-checkboxes');
                     categoriesData.categories.forEach((category) => {
@@ -222,13 +247,19 @@
                 async function createGame() {
                     setResultState(createResult, '', 'info');
                     const itemCategories = Array.from(document.querySelectorAll('.category-checkbox:checked')).map((el) => el.value);
+                    const draftType = document.getElementById('draft-type-select').value;
+                    const body = {
+                        draft_type: draftType,
+                        max_players: document.getElementById('max-players-input').value,
+                        item_categories: itemCategories,
+                    };
+                    if (draftType === 'grid') {
+                        body.num_grids = document.getElementById('num-grids-input').value;
+                    } else {
+                        body.picks_per_player = document.getElementById('picks-per-player-input').value;
+                    }
                     try {
-                        const data = await apiPost('/draft/create', {
-                            draft_type: document.getElementById('draft-type-select').value,
-                            max_players: document.getElementById('max-players-input').value,
-                            picks_per_player: document.getElementById('picks-per-player-input').value,
-                            item_categories: itemCategories,
-                        });
+                        const data = await apiPost('/draft/create', body);
                         enterGame(data.join_code);
                     } catch (error) {
                         setResultState(createResult, escapeHtml(error.message), 'error');
@@ -330,6 +361,80 @@
                     });
                 }
 
+                // Row/column/diagonal cell coordinates for a 3x3 grid, matching
+                // GRID_LINES in the backend's draft_tools.py exactly.
+                const GRID_ROW_LINES = [[[0, 0], [0, 1], [0, 2]], [[1, 0], [1, 1], [1, 2]], [[2, 0], [2, 1], [2, 2]]];
+                const GRID_COLUMN_LINES = [[[0, 0], [1, 0], [2, 0]], [[0, 1], [1, 1], [2, 1]], [[0, 2], [1, 2], [2, 2]]];
+                const GRID_DIAGONAL_LINES = [[[0, 0], [1, 1], [2, 2]], [[0, 2], [1, 1], [2, 0]]];
+
+                function renderGridDraft(grids, currentGridNumber, yourTurn) {
+                    const container = document.getElementById('item-pool');
+                    if (!grids || currentGridNumber === null || currentGridNumber === undefined) {
+                        container.innerHTML = '<p>All grids have been drafted.</p>';
+                        return;
+                    }
+                    const currentGrid = grids[currentGridNumber];
+
+                    const boardHtml = currentGrid.map((rowCells) => rowCells.map((cell) => {
+                        if (!cell || cell.taken) {
+                            return `<div class="grid-draft__cell taken"></div>`;
+                        }
+                        const icon = iconFor(cell.item_name, cell.category);
+                        const iconImg = icon ? `<img class="pool-icon" src="${icon}" alt="" loading="lazy">` : '';
+                        return `<div class="grid-draft__cell">${iconImg}<span>${escapeHtml(cell.item_name)}</span></div>`;
+                    }).join('')).join('');
+
+                    const lineHasCards = (cells) => cells.some(([row, col]) => currentGrid[row][col] && !currentGrid[row][col].taken);
+
+                    function lineButtonsHtml(lineType, lines, labels) {
+                        return lines.map((cells, lineIndex) => {
+                            const enabled = yourTurn && lineHasCards(cells);
+                            return `<button type="button" class="secondary grid-line-button" data-line-type="${lineType}" data-line-index="${lineIndex}" ${enabled ? '' : 'disabled'}>${labels[lineIndex]}</button>`;
+                        }).join('');
+                    }
+
+                    const historyHtml = grids.map((grid, gridNumber) => {
+                        if (gridNumber === currentGridNumber) return '';
+                        const cellsHtml = grid.flat().map((cell) =>
+                            `<div class="grid-draft__history-cell${!cell || cell.taken ? ' taken' : ''}"></div>`
+                        ).join('');
+                        return `<div class="grid-draft__history-grid" title="Grid ${gridNumber + 1}">${cellsHtml}</div>`;
+                    }).join('');
+
+                    container.innerHTML = `
+                        <div class="grid-draft">
+                            <div class="grid-draft__board">${boardHtml}</div>
+                            <div class="grid-draft__lines">
+                                <div class="grid-draft__line-group">
+                                    <span>Rows</span>
+                                    <div class="grid-draft__line-buttons">${lineButtonsHtml('row', GRID_ROW_LINES, ['Row 1', 'Row 2', 'Row 3'])}</div>
+                                </div>
+                                <div class="grid-draft__line-group">
+                                    <span>Columns</span>
+                                    <div class="grid-draft__line-buttons">${lineButtonsHtml('column', GRID_COLUMN_LINES, ['Col 1', 'Col 2', 'Col 3'])}</div>
+                                </div>
+                                <div class="grid-draft__line-group">
+                                    <span>Diagonals</span>
+                                    <div class="grid-draft__line-buttons">${lineButtonsHtml('diagonal', GRID_DIAGONAL_LINES, ['↘', '↙'])}</div>
+                                </div>
+                            </div>
+                            ${historyHtml ? `<div class="grid-draft__history">${historyHtml}</div>` : ''}
+                        </div>`;
+
+                    container.querySelectorAll('.grid-line-button').forEach((button) => {
+                        button.addEventListener('click', () => pickLine(currentGridNumber, button.dataset.lineType, Number(button.dataset.lineIndex)));
+                    });
+                }
+
+                async function pickLine(gridNumber, lineType, lineIndex) {
+                    try {
+                        await apiPost(`/draft/${currentJoinCode}/pick`, { grid_number: gridNumber, line_type: lineType, line_index: lineIndex });
+                        pollState();
+                    } catch (error) {
+                        setResultState(statusMessage, escapeHtml(error.message), 'error');
+                    }
+                }
+
                 function renderGameState(state) {
                     document.getElementById('seat-list').innerHTML = state.seats.map((seat) => {
                         const onClock = seat.seat_number === state.on_the_clock_seat;
@@ -342,8 +447,13 @@
                         (state.status === 'lobby' && state.is_host) ? 'flex' : 'none';
 
                     const poolSection = document.getElementById('pool-section');
-                    if (state.status === 'drafting') {
+                    if (state.status === 'drafting' && state.draft_type === 'grid') {
                         poolSection.style.display = 'block';
+                        document.getElementById('pool-section-title').textContent = 'Draft Grid';
+                        renderGridDraft(state.grids, state.current_grid_number, state.your_turn);
+                    } else if (state.status === 'drafting') {
+                        poolSection.style.display = 'block';
+                        document.getElementById('pool-section-title').textContent = 'Item Pool';
                         renderItemPool(state.pool, state.your_turn);
                     } else {
                         poolSection.style.display = 'none';
