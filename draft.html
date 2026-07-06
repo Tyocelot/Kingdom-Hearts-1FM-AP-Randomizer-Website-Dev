@@ -406,6 +406,12 @@
                     GRID_ROW_LINES.forEach((cells, rowIndex) => {
                         boardItems.push(headerButtonHtml('row', rowIndex, cells, `Row ${rowIndex + 1}`));
                         currentGrid[rowIndex].forEach((cell) => boardItems.push(cellHtml(cell)));
+                        // Explicit filler for the 5th column - each cell row
+                        // only has 4 real items (row button + 3 cells), and
+                        // without this the grid's auto-placement packs the
+                        // next row's button into that empty slot instead of
+                        // wrapping to a new visual row.
+                        boardItems.push('<div class="grid-draft__filler"></div>');
                     });
 
                     const historyHtml = grids.map((grid, gridNumber) => {
