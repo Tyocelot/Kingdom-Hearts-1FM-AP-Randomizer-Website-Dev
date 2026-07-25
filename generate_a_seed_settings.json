@@ -1236,7 +1236,7 @@
           "id": "Starting Worlds",
           "type": "range",
           "min": 0,
-          "max": 10,
+          "max": 11,
           "default": 4,
           "description": "Determines the amount of worlds the player starts with in addition to Traverse Town.",
           "yamlKey": "starting_worlds",
