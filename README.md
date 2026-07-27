@@ -19,7 +19,7 @@ This entire section can be updated and cleaned up after if it's decided to keep 
 The idea is to streamline content updates for worlds listed as locations, and to organize location related files by grouping them.
 
 ### Breakdown
-Within the locations directory are additional directories for each location. Each location will include all relevant files to that location. All location data, the locations html page, and any images strictly related to that location would all be included. Routing to a location like so `/locations/100-acre-wood/` would then use that locations `index.html` page with the routing showing as the url path. If needing to access a root page from a location ( or from any nested html page ), the forward slash would be necessary like so `/traverse_town` to indicate that page starts at root. 
+Within the locations directory are additional directories for each location. Each location will include all relevant files to that location. All location data, the locations html page, and any images strictly related to that location would all be included. Routing to a location like so `/locations/100_acre_wood/` would then use that locations `index.html` page with the routing showing as the url path. If needing to access a root page from a location ( or from any nested html page ), the forward slash would be necessary like so `/traverse_town` to indicate that page starts at root. 
 
 Each locations `data.json` file includes all information related to that location. This data is then used in generating a locations `index.html` page. To generate the pages run the `generateLocationsHtml.js` file.
 
@@ -56,7 +56,7 @@ Styling updates:
 ```
 root
 ├── locations
-│   └── 100-acre-wood
+│   └── 100_acre_wood
 │       ├── data.json
 │       ├── index.html
 │       └── images
@@ -71,22 +71,22 @@ root
 Some temporary notes, questions, thoughts about this change. We can remove this section later.
 
 In `header.html` I included two additional locations under `locations_guide` as examples of this change. 
-One is root pathing for `/traverse_town` and the other is pathing for the `/locations/100-acre-wood` example.
+One is root pathing for `/traverse_town` and the other is pathing for the `/locations/100_acre_wood` example.
 
 <!-- 
 <a href="/traverse_town">Traverse Town ( With Gen Page Ex )</a>
-<a href="/locations/100-acre-wood">100 Acre Wood ( Gen Page Ex )</a> 
+<a href="/locations/100_acre_wood">100 Acre Wood ( Gen Page Ex )</a> 
 -->
 
 #### Questions:
-- I changed the name of `100_acre_wood` to `100-acre-wood` because that's my understanding of naming conventions, should this be kept or reverted?
+- I changed the name of `100_acre_wood` to `100_acre_wood` because that's my understanding of naming conventions, should this be kept or reverted?
 - This changes the url path shown in browser, and will require updates across board for accessing root pages, is this ok?
 - Should we keep the directory name `locations` to be consistent with `locations_guide` or rename it to `worlds`?
 - The styling update removes the color from the entire text section, and only colors the name of each difficulty, should it be kept this way or reverted?
 
 #### Thoughts
 - This is a POC. If we like this I can get started on building out other location directories.
-- I just copied the text from `100_acre_wood.html` and added it into `100-acre-wood/data.json`.
+- I just copied the text from `100_acre_wood.html` and added it into `100_acre_wood/data.json`.
 - Based on the question answers above I can make changes accordingly. Some might require additional logic.
 - Updates to `header.html`, `locations_guide.html`, and other files requiring path updates would be done after all locations are built to avoid breaking site routes.
 
