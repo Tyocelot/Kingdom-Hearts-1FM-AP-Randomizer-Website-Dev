@@ -1,0 +1,274 @@
+{
+    "title": "100 Acre Wood",
+    "entries": [
+        {
+            "name": "100 Acre Wood Meadow Inside Log Chest",
+            "area": "Wood: Meadow",
+            "requirements": "",
+            "description": "Open the chest inside the central log.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Meadow Inside Log Chest.webp",
+                    "alt": "100 Acre Wood Meadow Inside Log Chest",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Pooh's Room Chimney",
+            "area": "Pooh's House",
+            "requirements": "",
+            "description": "Hit the metal chimney on the roof, and collect the item that fell down inside.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Pooh's Room Chimney.webp",
+                    "alt": "100 Acre Wood Pooh's Room Chimney",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Pooh's Room Cabinet",
+            "area": "Pooh's House",
+            "requirements": "",
+            "description": "Open the cabinet in the corner of the room.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Pooh's Room Cabinet.webp",
+                    "alt": "100 Acre Wood Pooh's Room Cabinet",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Convert Torn Page 1",
+            "area": "100 Acre Wood",
+            "requirements": "Requires 1 Torn Page.",
+            "description": "Complete Pooh's Hunny Hunt mini-game and leave.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Convert Torn Page 1.webp",
+                    "alt": "100 Acre Wood Convert Torn Page 1",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Convert Torn Page 2",
+            "area": "100 Acre Wood",
+            "requirements": "Requires 2 Torn Pages.",
+            "description": "Complete the Block Tigger mini-game and leave.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Convert Torn Page 2.webp",
+                    "alt": "100 Acre Wood Convert Torn Page 2",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Convert Torn Page 3",
+            "area": "100 Acre Wood",
+            "requirements": "Requires 3 Torn Pages.",
+            "description": "Complete the Pooh's Swing mini-game and leave.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Convert Torn Page 3.webp",
+                    "alt": "100 Acre Wood Convert Torn Page 3",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Pooh's House Start Fire",
+            "area": "Pooh's House",
+            "requirements": "Requires 3 Torn Pages.<br>(Fire is required to access 100 Acre Wood)",
+            "description": "Cast Fire on the campfire, then talk with Pooh once he starts roasting his hands.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Pooh's House Start Fire.webp",
+                    "alt": "100 Acre Wood Pooh's House Start Fire",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "divider": true,
+            "elementData": "colspan=\"5\" class=\"callout\"><h2>The locations below require 4 Torn Pages</h2>"
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Under Giant Pot Chest",
+            "area": "Bouncing Spot",
+            "requirements": "",
+            "description": "Open the chest in the center of the room by destroying the pot by completing Tigger's Giant Pot mini-game.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Under Giant Pot Chest.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Under Giant Pot Chest",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Break Log",
+            "area": "Bouncing Spot",
+            "requirements": "",
+            "description": "Break open the log near Pooh and collect the item inside.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Break Log.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Break Log",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Right Tree Alcove Chest",
+            "area": "Bouncing Spot",
+            "requirements": "{beginner} High Jump & Glide<hr>{normal} High Jump OR Glide<hr>{proud} Nothing",
+            "description": "Open the chest in an alcove above the seesaw.<br><br>Can be reached by jumping from above after being sprung up by the seesaw.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Right Tree Alcove Chest.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Right Tree Alcove Chest",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Left Cliff Chest",
+            "area": "Bouncing Spot",
+            "requirements": "{beginner} High Jump & Glide<hr>{normal} High Jump OR Glide<hr>{proud} Nothing",
+            "description": "Open the chest atop a cliff to the left of Pooh, and near the \"Break Log\" location.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Left Cliff Chest.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Left Cliff Chest",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Fall Through Top of Tree Next to Pooh",
+            "area": "Bouncing Spot",
+            "requirements": "{beginner} High Jump & Glide<hr>{normal} High Jump OR Glide<hr>{proud} Nothing",
+            "description": "Enter the hole in the upper portion of the tree Pooh is standing next to, and collect the item that slides out.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Fall Through Top of Tree Next to Pooh 1.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Fall Through Top of Tree Next to Pooh 1",
+                    "class": "loc-img"
+                },
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Fall Through Top of Tree Next to Pooh 2.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Fall Through Top of Tree Next to Pooh 2",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Turn in Rare Nut 1",
+            "area": "Bouncing Spot",
+            "requirements": "",
+            "description": "After speaking with Owl, collect this nut by being raised by a stump on a log near the seesaw. Step on a raised stump across a log to activate the geyser. Return the nut to Owl.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Turn in Rare Nut 1.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Turn in Rare Nut 1",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Turn in Rare Nut 2",
+            "area": "Bouncing Spot",
+            "requirements": "{beginner} High Jump & Glide<hr>{normal} High Jump OR Glide<hr>{proud} Nothing",
+            "description": "Collect one of the two nuts above the seesaw and the \"Alcove Chest\", accessible via platforming or being sprung up by the seesaw. Return the nut to Owl.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Turn in Rare Nut 2.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Turn in Rare Nut 2",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Turn in Rare Nut 3",
+            "area": "Bouncing Spot",
+            "requirements": "{beginner} High Jump & Glide<hr>{normal} High Jump OR Glide<hr>{proud} Nothing",
+            "description": "Collect the other nut above the seesaw and the \"Alcove Chest\", accessible via platforming or being sprung up by the seesaw. Return the nut to Owl.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Turn in Rare Nut 3.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Turn in Rare Nut 3",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Turn in Rare Nut 4",
+            "area": "Bouncing Spot",
+            "requirements": "{beginner} High Jump & Glide<hr>{normal} High Jump OR Glide<hr>{proud} Nothing",
+            "description": "This nut is located on some branches above the stump you step on for nut 1, and to the right of the tree with a hole. Return the nut to Owl.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Turn in Rare Nut 4.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Turn in Rare Nut 4",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Bouncing Spot Turn in Rare Nut 5",
+            "area": "Bouncing Spot",
+            "requirements": "{beginner} High Jump & Glide<hr>{normal} High Jump OR Glide<hr>{minimal} Combo Master",
+            "description": "Collect the nut on some branches above where the Tigger and Roo platforming memory game ends at. Return the nut to Owl.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Bouncing Spot Turn in Rare Nut 5.webp",
+                    "alt": "100 Acre Wood Bouncing Spot Turn in Rare Nut 5",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Convert Torn Page 4",
+            "area": "100 Acre Wood",
+            "requirements": "",
+            "description": "Complete the activities in the Bouncing Spot and leave.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Convert Torn Page 4.webp",
+                    "alt": "100 Acre Wood Convert Torn Page 4",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Convert Torn Page 5",
+            "area": "100 Acre Wood",
+            "requirements": "Requires 5 Torn Pages.",
+            "description": "Complete Pooh's Muddy Path mini-game and see the ending cutscene.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Convert Torn Page 5.webp",
+                    "alt": "100 Acre Wood Convert Torn Page 5",
+                    "class": "loc-img"
+                }
+            ]
+        },
+        {
+            "name": "100 Acre Wood Pooh's House Owl Cheer",
+            "area": "Pooh's House",
+            "requirements": "Requires 5 Torn Pages.",
+            "description": "Talk with Owl at Pooh's House after getting over 100 points in Pooh's Hunny Hunt, over 150 points in Block Tigger, over 40 yards in Pooh's Swing, completing Tigger's Giant Pot in under 30 seconds, and Pooh's Muddy Path in under 5 minutes.",
+            "images": [
+                {
+                    "src": "./images/100 Acre Wood Pooh's House Owl Cheer.webp",
+                    "alt": "100 Acre Wood Pooh's House Owl Cheer",
+                    "class": "loc-img"
+                }
+            ]
+        }
+    ]
+}

@@ -13,6 +13,10 @@
     --gold: #ffd580;
     --gold-dim: #c9a35f;
     --radius: 8px;
+    --beginner-color: #13ff00;
+    --normal-color: #ffffff;
+    --proud-color: #ffcd00;
+    --minimal-color: #f44336;
 }
 
 * {

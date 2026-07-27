@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{title}</title>
+    <link rel="icon" type="image/x-icon" href="../../images/icon.png">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+    <body> 
+        <div class="container">
+            <!-- Make dark mode -->
+            <meta name="color-scheme" content="light dark"/>
+            <div id="header-container"></div>
+            
+            <script>
+                fetch('../../header.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('header-container').innerHTML = html;
+                        document.getElementById('page-subtitle').textContent = '100 Acre Wood';
+                        document.getElementById('nav-apworld-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
+                    });
+            </script>
+
+            <script src="../../config.js"></script>
+        
+            <h2>Location Information</h2>
+
+            <table class="location-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Area</th>
+                        <th>Requirements</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {table}
+                </tbody>
+            </table>
+        </div> 
+    </body>
+</html>
