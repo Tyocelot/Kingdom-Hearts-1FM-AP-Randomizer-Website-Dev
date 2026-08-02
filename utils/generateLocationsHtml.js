@@ -24,21 +24,21 @@ function generateLocations() {
     };
 }
 
-// Genereate and write individual location html files
+// Generate and write individual location html files
 function generateLocationHtml(locationsPath, directory) {
 
     try {
-        // Read data and template files
-        const data = JSON.parse(fs.readFileSync(`${locationsPath}/${directory}/data.json`, 'utf8'));
+        // Read template and table files
         const template = fs.readFileSync(path.join(process.cwd(), '/utils/locationsTemplate.html'), 'utf8');
+        const table = fs.readFileSync(path.join(process.cwd(), `locations/${directory}/tbody.html`), 'utf8');
 
-        console.log(`Successfully read data and template files.`);
+        console.log(`Successfully read template and table files.`);
 
-        // Build table from data
-        const table = buildTable(data.entries);
+        // Set page title
+        const title = directory.replace("_", " ").replace(/\b\w/g, char => char.toUpperCase());
 
         // Replace html title and table placeholders
-        let page = template.replace(/{title}/g, data.title);
+        let page = template.replace(/{title}/g, title);
         page = page.replace(/{table}/g, table);
 
         // Replace difficulty styling placeholders in table
@@ -55,70 +55,6 @@ function generateLocationHtml(locationsPath, directory) {
     catch (error) {
         console.error('Error processing files:', error.message);
     };
-};
-
-// Build the location table
-function buildTable(entries) {
-    let table = "";
-
-    for (let entry of entries) {
-        // Account for a divider element
-        if (entry.hasOwnProperty('divider') && entry.divider) {
-            table += `
-                    <tr>
-                        <td ${entry.elementData}</td>
-                    </tr>
-            `;
-        }
-
-        // Build table rows from entry data, if not a divider
-        else {
-            table += `
-                    <tr>
-                        <td>${entry.name}</td>
-                        <td>${entry.area}</td>
-                        <td>${entry.requirements}</td>
-                        <td>${entry.description}</td>
-                        <td>${buildImage(entry.images)}</td>
-                    </tr>
-            `;
-        };
-    };
-
-    return table;
-};
-
-// Build the image cell
-function buildImage(entryImages) {
-    let image = "";
-
-    // Account for only 1 image entry
-    if (entryImages.length === 1) {
-        let imageElement = "";
-        for (const [key, value] of Object.entries(entryImages[0])) {
-            imageElement += ` ${key}="${value}"`;
-        };
-        image += `<img${imageElement}>`;
-    }
-
-    // Account for multiple image entries
-    else if (entryImages.length > 1) {
-        const lastEntry = entryImages.at(-1);
-
-        for (let entryImage of entryImages) {
-            let imageElement = "";
-            for (const [key, value] of Object.entries(entryImage)) {
-                imageElement += ` ${key}="${value}"`;
-            };
-            image += `<img${imageElement}>`;
-
-            if (entryImage != lastEntry) {
-                image += "<br>"
-            };
-        };
-    };
-
-    return image;
 };
 
 // Run script

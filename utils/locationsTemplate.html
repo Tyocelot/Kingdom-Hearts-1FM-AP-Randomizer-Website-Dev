@@ -16,7 +16,7 @@
                     .then(response => response.text())
                     .then(html => {
                         document.getElementById('header-container').innerHTML = html;
-                        document.getElementById('page-subtitle').textContent = '100 Acre Wood';
+                        document.getElementById('page-subtitle').textContent = '{title}';
                         document.getElementById('nav-apworld-link').href = `${FLASK_BASE_URL}/kh1.apworld`;
                     });
             </script>
